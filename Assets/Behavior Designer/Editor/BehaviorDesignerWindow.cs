@@ -1,10 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: BehaviorDesigner.Editor.BehaviorDesignerWindow
-// Assembly: BehaviorDesigner.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: BCDC5FA8-C213-4FB9-87DF-CDF716000D6A
-// Assembly location: D:\StudyProject\BehaviourTree\Assets\Behavior Designer\Editor\BehaviorDesigner.Editor.dll
-
-using BehaviorDesigner.Runtime;
+﻿using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using System;
 using System.Collections.Generic;
@@ -398,9 +392,11 @@ namespace BehaviorDesigner.Editor
         this.mTaskInspector = ScriptableObject.CreateInstance<TaskInspector>();
       if ((Object) this.mGridMaterial == (Object) null)
       {
-        this.mGridMaterial = new Material(Shader.Find("Hidden/Behavior Designer/Grid"));
-        this.mGridMaterial.hideFlags = HideFlags.HideAndDontSave;
-        this.mGridMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+        //可以滑动地方的网格材质球...
+        this.mGridMaterial = new Material(Shader.Find("Hidden/Behavior Designer/Grid"))
+        {
+          hideFlags = HideFlags.HideAndDontSave, shader = {hideFlags = HideFlags.HideAndDontSave}
+        };
       }
       this.mTaskList.Init();
       FieldInspector.Init();
@@ -1095,7 +1091,7 @@ namespace BehaviorDesigner.Editor
 
     private bool DrawGraphArea()
     {
-      if (Event.current.type != UnityEngine.EventType.ScrollWheel && !this.mTakingScreenshot)
+      if (Event.current.type != EventType.ScrollWheel && !mTakingScreenshot)
       {
         Vector2 vector2 = GUI.BeginScrollView(new Rect(this.mGraphRect.x, this.mGraphRect.y, this.mGraphRect.width + 15f, this.mGraphRect.height + 15f), this.mGraphScrollPosition, new Rect(0.0f, 0.0f, this.mGraphScrollSize.x, this.mGraphScrollSize.y), true, true);
         if (vector2 != this.mGraphScrollPosition && Event.current.type != UnityEngine.EventType.DragUpdated && Event.current.type != UnityEngine.EventType.Ignore)
@@ -1113,8 +1109,8 @@ namespace BehaviorDesigner.Editor
       if (!this.GetMousePositionInGraph(out mousePosition))
         mousePosition = new Vector2(-1f, -1f);
       bool flag = false;
-      if ((Object) this.mGraphDesigner != (Object) null && this.mGraphDesigner.DrawNodes(mousePosition, this.mGraphOffset))
-        flag = true;
+      if (mGraphDesigner != null && mGraphDesigner.DrawNodes(mousePosition, mGraphOffset))
+          flag = true;
       if (this.mTakingScreenshot && Event.current.type == UnityEngine.EventType.Repaint)
         this.RenderScreenshotTile();
       if (this.mIsSelecting)
@@ -1125,20 +1121,26 @@ namespace BehaviorDesigner.Editor
       return flag;
     }
 
+    /// <summary>
+    /// 绘制网格， 大网格和小网格各自绘制一遍
+    /// </summary>
     private void DrawGrid()
     {
       if (!BehaviorDesignerPreferences.GetBool(BDPreferences.SnapToGrid) || Event.current.type != UnityEngine.EventType.Repaint)
         return;
-      this.mGridMaterial.SetPass(!EditorGUIUtility.isProSkin ? 1 : 0);
+      //这个是小的网格
+      mGridMaterial.SetPass(!EditorGUIUtility.isProSkin ? 1 : 0);
       GL.PushMatrix();
-      GL.Begin(1);
-      this.DrawGridLines(10f * this.mGraphZoom, new Vector2(this.mGraphOffset.x % 10f * this.mGraphZoom, this.mGraphOffset.y % 10f * this.mGraphZoom));
+      GL.Begin(GL.LINES);
+      DrawGridLines(10f * mGraphZoom, new Vector2(mGraphOffset.x % 10f * mGraphZoom, mGraphOffset.y % 10f * mGraphZoom));
       GL.End();
       GL.PopMatrix();
-      this.mGridMaterial.SetPass(!EditorGUIUtility.isProSkin ? 3 : 2);
+      
+      //下面是大的网格
+      mGridMaterial.SetPass(!EditorGUIUtility.isProSkin ? 3 : 2);
       GL.PushMatrix();
-      GL.Begin(1);
-      this.DrawGridLines(50f * this.mGraphZoom, new Vector2(this.mGraphOffset.x % 50f * this.mGraphZoom, this.mGraphOffset.y % 50f * this.mGraphZoom));
+      GL.Begin(GL.LINES);
+      DrawGridLines(50f * this.mGraphZoom, new Vector2(this.mGraphOffset.x % 50f * this.mGraphZoom, this.mGraphOffset.y % 50f * mGraphZoom));
       GL.End();
       GL.PopMatrix();
     }
@@ -1159,8 +1161,8 @@ namespace BehaviorDesigner.Editor
 
     private void DrawLine(Vector2 p1, Vector2 p2)
     {
-      GL.Vertex((Vector3) p1);
-      GL.Vertex((Vector3) p2);
+      GL.Vertex(p1);
+      GL.Vertex(p2);
     }
 
     private void DrawGraphStatus()
