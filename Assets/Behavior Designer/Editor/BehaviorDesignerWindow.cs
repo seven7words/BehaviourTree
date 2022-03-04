@@ -46,6 +46,9 @@ namespace BehaviorDesigner.Editor
     /// left top panel selection
     /// </summary>
     private int mBehaviorToolbarSelection = 3;
+    /// <summary>
+    /// left top panel all names
+    /// </summary>
     private string[] mBehaviorToolbarStrings = new string[4]
     {
       "Behavior",
