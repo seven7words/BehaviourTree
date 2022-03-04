@@ -71,7 +71,7 @@ namespace BehaviorDesigner.Editor
       else if (Path.GetExtension(path) != string.Empty)
         path = path.Replace(Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), string.Empty);
       string uniqueAssetPath = AssetDatabase.GenerateUniqueAssetPath(path + "/" + name + ".asset");
-      AssetDatabase.CreateAsset((Object) instance, uniqueAssetPath);
+      AssetDatabase.CreateAsset(instance, uniqueAssetPath);
       AssetDatabase.SaveAssets();
     }
 

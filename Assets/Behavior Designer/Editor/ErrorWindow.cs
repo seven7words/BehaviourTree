@@ -34,7 +34,7 @@ namespace BehaviorDesigner.Editor
     public void OnFocus()
     {
       ErrorWindow.instance = this;
-      if (!((Object) BehaviorDesignerWindow.instance != (Object) null))
+      if (!(BehaviorDesignerWindow.instance != null))
         return;
       this.mErrorDetails = BehaviorDesignerWindow.instance.ErrorDetails;
     }
@@ -47,31 +47,31 @@ namespace BehaviorDesigner.Editor
         for (int index = 0; index < this.mErrorDetails.Count; ++index)
         {
           BehaviorDesigner.Editor.ErrorDetails mErrorDetail = this.mErrorDetails[index];
-          if (mErrorDetail != null && (mErrorDetail.Type == BehaviorDesigner.Editor.ErrorDetails.ErrorType.InvalidVariableReference || !((Object) mErrorDetail.NodeDesigner == (Object) null) && mErrorDetail.NodeDesigner.Task != null))
+          if (mErrorDetail != null && (mErrorDetail.Type == BehaviorDesigner.Editor.ErrorDetails.ErrorType.InvalidVariableReference || !(mErrorDetail.NodeDesigner == null) && mErrorDetail.NodeDesigner.Task != null))
           {
             string label = string.Empty;
             switch (mErrorDetail.Type)
             {
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.RequiredField:
-                label = string.Format("The task {0} ({1}, index {2}) requires a value for the field {3}.", (object) mErrorDetail.TaskFriendlyName, (object) mErrorDetail.TaskType, (object) mErrorDetail.NodeDesigner.Task.ID, (object) BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
+                label = string.Format("The task {0} ({1}, index {2}) requires a value for the field {3}.", mErrorDetail.TaskFriendlyName, mErrorDetail.TaskType, mErrorDetail.NodeDesigner.Task.ID, BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.SharedVariable:
-                label = string.Format("The task {0} ({1}, index {2}) has a Shared Variable field ({3}) that is marked as shared but is not referencing a Shared Variable.", (object) mErrorDetail.TaskFriendlyName, (object) mErrorDetail.TaskType, (object) mErrorDetail.NodeDesigner.Task.ID, (object) BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
+                label = string.Format("The task {0} ({1}, index {2}) has a Shared Variable field ({3}) that is marked as shared but is not referencing a Shared Variable.", mErrorDetail.TaskFriendlyName, mErrorDetail.TaskType, mErrorDetail.NodeDesigner.Task.ID, BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.NonUniqueDynamicVariable:
-                label = string.Format("The task {0} ({1}, index {2}) has a dynamic Shared Variable ({3}) but the name matches an existing Shared Varaible.", (object) mErrorDetail.TaskFriendlyName, (object) mErrorDetail.TaskType, (object) mErrorDetail.NodeDesigner.Task.ID, (object) BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
+                label = string.Format("The task {0} ({1}, index {2}) has a dynamic Shared Variable ({3}) but the name matches an existing Shared Varaible.", mErrorDetail.TaskFriendlyName, mErrorDetail.TaskType, mErrorDetail.NodeDesigner.Task.ID, BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.MissingChildren:
-                label = string.Format("The {0} task ({1}, index {2}) is a parent task which does not have any children", (object) mErrorDetail.TaskFriendlyName, (object) mErrorDetail.TaskType, (object) mErrorDetail.NodeDesigner.Task.ID);
+                label = string.Format("The {0} task ({1}, index {2}) is a parent task which does not have any children", mErrorDetail.TaskFriendlyName, mErrorDetail.TaskType, mErrorDetail.NodeDesigner.Task.ID);
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.UnknownTask:
-                label = string.Format("The task at index {0} is unknown. Has a task been renamed or deleted?", (object) mErrorDetail.NodeDesigner.Task.ID);
+                label = string.Format("The task at index {0} is unknown. Has a task been renamed or deleted?", mErrorDetail.NodeDesigner.Task.ID);
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.InvalidTaskReference:
-                label = string.Format("The task {0} ({1}, index {2}) has a field ({3}) which is referencing an object within the scene. Behavior tree variables at the project level cannot reference objects within a scene.", (object) mErrorDetail.TaskFriendlyName, (object) mErrorDetail.TaskType, (object) mErrorDetail.NodeDesigner.Task.ID, (object) BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
+                label = string.Format("The task {0} ({1}, index {2}) has a field ({3}) which is referencing an object within the scene. Behavior tree variables at the project level cannot reference objects within a scene.", mErrorDetail.TaskFriendlyName, mErrorDetail.TaskType, mErrorDetail.NodeDesigner.Task.ID, BehaviorDesignerUtility.SplitCamelCase(mErrorDetail.FieldName));
                 break;
               case BehaviorDesigner.Editor.ErrorDetails.ErrorType.InvalidVariableReference:
-                label = string.Format("The variable {0} is referencing an object within the scene. Behavior tree variables at the project level cannot reference objects within a scene.", (object) mErrorDetail.FieldName);
+                label = string.Format("The variable {0} is referencing an object within the scene. Behavior tree variables at the project level cannot reference objects within a scene.", mErrorDetail.FieldName);
                 break;
             }
             EditorGUILayout.LabelField(label, index % 2 != 0 ? BehaviorDesignerUtility.ErrorListDarkBackground : BehaviorDesignerUtility.ErrorListLightBackground, GUILayout.Height(30f), GUILayout.Width((float) (Screen.width - 7)));

@@ -125,7 +125,7 @@ namespace BehaviorDesigner.Editor
         if (!Application.isPlaying && behaviorSource != null && behaviorSource.Owner is Behavior)
         {
           Behavior owner = behaviorSource.Owner as Behavior;
-          if ((Object) owner.ExternalBehavior != (Object) null)
+          if (owner.ExternalBehavior != null)
           {
             BehaviorSource behaviorSource1 = owner.GetBehaviorSource();
             behaviorSource1.CheckForSerialization(true);
@@ -195,7 +195,7 @@ namespace BehaviorDesigner.Editor
       if (flag1 && !EditorApplication.isPlayingOrWillChangePlaymode && (behaviorSource != null && behaviorSource.Owner is Behavior))
       {
         Behavior owner = behaviorSource.Owner as Behavior;
-        if ((Object) owner.ExternalBehavior != (Object) null)
+        if (owner.ExternalBehavior != null)
         {
           if (BehaviorDesignerPreferences.GetBool(BDPreferences.BinarySerialization))
             BinarySerialization.Save(behaviorSource);
@@ -307,7 +307,7 @@ namespace BehaviorDesigner.Editor
             Directory.CreateDirectory(Application.dataPath + str1 + "/Resources");
           if (!File.Exists(Application.dataPath + str2))
           {
-            AssetDatabase.CreateAsset((Object) instance, "Assets" + str2);
+            AssetDatabase.CreateAsset(instance, "Assets" + str2);
             EditorUtility.DisplayDialog("Created Global Variables", "Behavior Designer Global Variables asset created:\n\nAssets" + str1 + "/Resources/BehaviorDesignerGlobalVariables.asset\n\nNote: Copy this file to transfer global variables between projects.", "OK");
           }
           variableSource = (IVariableSource) instance;
@@ -386,7 +386,7 @@ namespace BehaviorDesigner.Editor
               flag = true;
             if (deleted)
             {
-              if ((Object) BehaviorDesignerWindow.instance != (Object) null)
+              if (BehaviorDesignerWindow.instance != null)
                 BehaviorDesignerWindow.instance.RemoveSharedVariableReferences(sharedVariable);
               variables.RemoveAt(index);
               if (selectedVariableIndex == index)
@@ -406,7 +406,7 @@ namespace BehaviorDesigner.Editor
             {
               if (GUILayout.Button((Texture) BehaviorDesignerUtility.VariableDeleteButtonTexture, BehaviorDesignerUtility.PlainButtonGUIStyle, GUILayout.Width(19f)) && EditorUtility.DisplayDialog("Delete Variable", "Are you sure you want to delete this variable?", "Yes", "No"))
               {
-                if ((Object) BehaviorDesignerWindow.instance != (Object) null)
+                if (BehaviorDesignerWindow.instance != null)
                 {
                   if (BehaviorDesignerWindow.instance.ActiveBehaviorSource != null)
                     BehaviorUndo.RegisterUndo("Delete Variable", BehaviorDesignerWindow.instance.ActiveBehaviorSource.Owner.GetObject());
@@ -424,7 +424,7 @@ namespace BehaviorDesigner.Editor
                 break;
               }
             }
-            if ((Object) BehaviorDesignerWindow.instance != (Object) null && BehaviorDesignerWindow.instance.ContainsError((Task) null, variables[index].Name))
+            if (BehaviorDesignerWindow.instance != null && BehaviorDesignerWindow.instance.ContainsError((Task) null, variables[index].Name))
               GUILayout.Box((Texture) BehaviorDesignerUtility.ErrorIconTexture, BehaviorDesignerUtility.PlainTextureGUIStyle, GUILayout.Width(20f));
             GUILayout.Space(10f);
             GUILayout.EndHorizontal();
@@ -475,7 +475,7 @@ namespace BehaviorDesigner.Editor
       else
       {
         EditorGUI.BeginChangeCheck();
-        FieldInspector.DrawFields((Task) null, (object) sharedVariable, new GUIContent(sharedVariable.Name, sharedVariable.Tooltip));
+        FieldInspector.DrawFields((Task) null, sharedVariable, new GUIContent(sharedVariable.Name, sharedVariable.Tooltip));
         flag = EditorGUI.EndChangeCheck();
       }
       if (!sharedVariable.IsGlobal)
@@ -541,7 +541,7 @@ namespace BehaviorDesigner.Editor
       selectedVariableTypeIndex = EditorGUILayout.Popup(selectedVariableTypeIndex, VariableInspector.sharedVariableStrings, EditorStyles.toolbarPopup, GUILayout.Width(200f));
       if (EditorGUI.EndChangeCheck() && VariableInspector.sharedVariableTypesDict[sharedVariable.GetType().Name] != selectedVariableTypeIndex)
       {
-        if ((Object) BehaviorDesignerWindow.instance != (Object) null)
+        if (BehaviorDesignerWindow.instance != null)
           BehaviorDesignerWindow.instance.RemoveSharedVariableReferences(sharedVariable);
         sharedVariable = VariableInspector.CreateVariable(selectedVariableTypeIndex, sharedVariable.Name, sharedVariable.IsGlobal);
         variables[selectedVariableIndex] = sharedVariable;
@@ -565,7 +565,7 @@ namespace BehaviorDesigner.Editor
       GUILayout.BeginHorizontal((GUILayoutOption[]) Array.Empty<GUILayoutOption>());
       if (VariableInspector.DrawSharedVariable(variableSource, sharedVariable, true))
         flag = true;
-      if ((Object) BehaviorDesignerWindow.instance != (Object) null && BehaviorDesignerWindow.instance.ContainsError((Task) null, variables[selectedVariableIndex].Name))
+      if (BehaviorDesignerWindow.instance != null && BehaviorDesignerWindow.instance.ContainsError((Task) null, variables[selectedVariableIndex].Name))
         GUILayout.Box((Texture) BehaviorDesignerUtility.ErrorIconTexture, BehaviorDesignerUtility.PlainTextureGUIStyle, GUILayout.Width(20f));
       GUILayout.EndHorizontal();
       BehaviorDesignerUtility.DrawContentSeperator(4, 7);
@@ -611,7 +611,7 @@ namespace BehaviorDesigner.Editor
         if ((num2 = VariableInspector.AddPropertyName(sharedVariable, gameObject, ref propertyNames, ref propertyGameObjects, true)) != -1)
           num1 = num2;
         GameObject[] gameObjectArray;
-        if (AssetDatabase.GetAssetPath((Object) gameObject).Length == 0)
+        if (AssetDatabase.GetAssetPath(gameObject).Length == 0)
         {
           gameObjectArray = Object.FindObjectsOfType<GameObject>();
         }
@@ -625,25 +625,25 @@ namespace BehaviorDesigner.Editor
         for (int index = 0; index < gameObjectArray.Length; ++index)
         {
           int num3;
-          if (!gameObjectArray[index].Equals((object) gameObject) && (num3 = VariableInspector.AddPropertyName(sharedVariable, gameObjectArray[index], ref propertyNames, ref propertyGameObjects, false)) != -1)
+          if (!gameObjectArray[index].Equals(gameObject) && (num3 = VariableInspector.AddPropertyName(sharedVariable, gameObjectArray[index], ref propertyNames, ref propertyGameObjects, false)) != -1)
             num1 = num3;
         }
       }
       for (int index = 0; index < propertyNames.Count; ++index)
       {
         string[] strArray = propertyNames[index].Split('.');
-        if ((Object) propertyGameObjects[index] != (Object) null)
+        if (propertyGameObjects[index] != null)
           strArray[strArray.Length - 1] = VariableInspector.GetFullPath(propertyGameObjects[index].transform) + "/" + strArray[strArray.Length - 1];
         GenericMenu propertyMappingMenu = VariableInspector.mPropertyMappingMenu;
         GUIContent content = new GUIContent(strArray[strArray.Length - 1]);
         int num2 = index == num1 ? 1 : 0;
         VariableInspector.SelectedPropertyMapping selectedPropertyMapping = new VariableInspector.SelectedPropertyMapping(propertyNames[index], propertyGameObjects[index]);
-        propertyMappingMenu.AddItem(content, num2 != 0, PropertySelected, (object) selectedPropertyMapping);
+        propertyMappingMenu.AddItem(content, num2 != 0, PropertySelected, selectedPropertyMapping);
       }
       VariableInspector.mPropertyMappingMenu.ShowAsContext();
     }
 
-    private static string GetFullPath(Transform transform) => (Object) transform.parent == (Object) null ? transform.name : VariableInspector.GetFullPath(transform.parent) + "/" + transform.name;
+    private static string GetFullPath(Transform transform) => transform.parent == null ? transform.name : VariableInspector.GetFullPath(transform.parent) + "/" + transform.name;
 
     private static int AddPropertyName(
       SharedVariable sharedVariable,
@@ -653,13 +653,13 @@ namespace BehaviorDesigner.Editor
       bool behaviorGameObject)
     {
       int num = -1;
-      if ((Object) gameObject != (Object) null)
+      if (gameObject != null)
       {
         Component[] components = gameObject.GetComponents(typeof (Component));
         System.Type propertyType = sharedVariable.GetType().GetProperty("Value").PropertyType;
         for (int index1 = 0; index1 < components.Length; ++index1)
         {
-          if (!((Object) components[index1] == (Object) null))
+          if (!(components[index1] == null))
           {
             PropertyInfo[] properties = components[index1].GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
             for (int index2 = 0; index2 < properties.Length; ++index2)
@@ -667,7 +667,7 @@ namespace BehaviorDesigner.Editor
               if (properties[index2].PropertyType.Equals(propertyType) && !properties[index2].IsSpecialName)
               {
                 string str = components[index1].GetType().FullName + "/" + properties[index2].Name;
-                if (str.Equals(sharedVariable.PropertyMapping) && (object.Equals((object) sharedVariable.PropertyMappingOwner, (object) gameObject) || object.Equals((object) sharedVariable.PropertyMappingOwner, (object) null) && behaviorGameObject))
+                if (str.Equals(sharedVariable.PropertyMapping) && (object.Equals(sharedVariable.PropertyMappingOwner, gameObject) || object.Equals(sharedVariable.PropertyMappingOwner, null) && behaviorGameObject))
                   num = propertyNames.Count;
                 propertyNames.Add(str);
                 propertyGameObjects.Add(gameObject);

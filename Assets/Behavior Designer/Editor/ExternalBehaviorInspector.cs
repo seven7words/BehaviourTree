@@ -26,19 +26,19 @@ namespace BehaviorDesigner.Editor
     public override void OnInspectorGUI()
     {
       ExternalBehavior target = this.target as ExternalBehavior;
-      if ((Object) target == (Object) null)
+      if (target == null)
         return;
       if (target.BehaviorSource.Owner == null)
         target.BehaviorSource.Owner = (IBehavior) target;
       if (!ExternalBehaviorInspector.DrawInspectorGUI(target.BehaviorSource, true, ref this.mShowVariables))
         return;
-      BehaviorDesignerUtility.SetObjectDirty((Object) target);
+      BehaviorDesignerUtility.SetObjectDirty(target);
     }
 
     public void Reset()
     {
       ExternalBehavior target = this.target as ExternalBehavior;
-      if ((Object) target == (Object) null || target.BehaviorSource.Owner != null)
+      if (target == null || target.BehaviorSource.Owner != null)
         return;
       target.BehaviorSource.Owner = (IBehavior) target;
     }
@@ -62,7 +62,7 @@ namespace BehaviorDesigner.Editor
       behaviorSource.behaviorDescription = EditorGUILayout.TextArea(behaviorSource.behaviorDescription, GUILayout.Height(48f));
       if (fromInspector)
       {
-        string key = "BehaviorDesigner.VariablesFoldout." + (object) behaviorSource.GetHashCode();
+        string key = "BehaviorDesigner.VariablesFoldout." + behaviorSource.GetHashCode();
         if (showVariables = EditorGUILayout.Foldout(EditorPrefs.GetBool(key, true), "Variables"))
         {
           ++EditorGUI.indentLevel;
@@ -85,7 +85,7 @@ namespace BehaviorDesigner.Editor
     public static bool ClickAction(int instanceID, int line)
     {
       ExternalBehavior externalBehavior = EditorUtility.InstanceIDToObject(instanceID) as ExternalBehavior;
-      if ((Object) externalBehavior == (Object) null)
+      if (externalBehavior == null)
         return false;
       BehaviorDesignerWindow.ShowWindow();
       BehaviorDesignerWindow.instance.LoadBehavior(externalBehavior.BehaviorSource, false, true);

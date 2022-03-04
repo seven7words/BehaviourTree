@@ -612,7 +612,7 @@ namespace BehaviorDesigner.Editor
 
     public static Texture2D GetTaskBorderTexture(int colorIndex)
     {
-      if ((Object) BehaviorDesignerUtility.taskBorderTexture[colorIndex] == (Object) null)
+      if (BehaviorDesignerUtility.taskBorderTexture[colorIndex] == null)
         BehaviorDesignerUtility.InitTaskBorderTexture(colorIndex);
       return BehaviorDesignerUtility.taskBorderTexture[colorIndex];
     }
@@ -621,7 +621,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskBorderRunningTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskBorderRunningTexture == null)
           BehaviorDesignerUtility.InitTaskBorderRunningTexture();
         return BehaviorDesignerUtility.taskBorderRunningTexture;
       }
@@ -631,7 +631,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskBorderIdentifyTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskBorderIdentifyTexture == null)
           BehaviorDesignerUtility.InitTaskBorderIdentifyTexture();
         return BehaviorDesignerUtility.taskBorderIdentifyTexture;
       }
@@ -639,14 +639,14 @@ namespace BehaviorDesigner.Editor
 
     public static Texture2D GetTaskConnectionTopTexture(int colorIndex)
     {
-      if ((Object) BehaviorDesignerUtility.taskConnectionTopTexture[colorIndex] == (Object) null)
+      if (BehaviorDesignerUtility.taskConnectionTopTexture[colorIndex] == null)
         BehaviorDesignerUtility.InitTaskConnectionTopTexture(colorIndex);
       return BehaviorDesignerUtility.taskConnectionTopTexture[colorIndex];
     }
 
     public static Texture2D GetTaskConnectionBottomTexture(int colorIndex)
     {
-      if ((Object) BehaviorDesignerUtility.taskConnectionBottomTexture[colorIndex] == (Object) null)
+      if (BehaviorDesignerUtility.taskConnectionBottomTexture[colorIndex] == null)
         BehaviorDesignerUtility.InitTaskConnectionBottomTexture(colorIndex);
       return BehaviorDesignerUtility.taskConnectionBottomTexture[colorIndex];
     }
@@ -655,7 +655,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskConnectionRunningTopTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskConnectionRunningTopTexture == null)
           BehaviorDesignerUtility.InitTaskConnectionRunningTopTexture();
         return BehaviorDesignerUtility.taskConnectionRunningTopTexture;
       }
@@ -665,7 +665,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskConnectionRunningBottomTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskConnectionRunningBottomTexture == null)
           BehaviorDesignerUtility.InitTaskConnectionRunningBottomTexture();
         return BehaviorDesignerUtility.taskConnectionRunningBottomTexture;
       }
@@ -675,7 +675,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskConnectionIdentifyTopTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskConnectionIdentifyTopTexture == null)
           BehaviorDesignerUtility.InitTaskConnectionIdentifyTopTexture();
         return BehaviorDesignerUtility.taskConnectionIdentifyTopTexture;
       }
@@ -685,7 +685,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskConnectionIdentifyBottomTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskConnectionIdentifyBottomTexture == null)
           BehaviorDesignerUtility.InitTaskConnectionIdentifyBottomTexture();
         return BehaviorDesignerUtility.taskConnectionIdentifyBottomTexture;
       }
@@ -695,7 +695,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.taskConnectionCollapsedTexture == (Object) null)
+        if (BehaviorDesignerUtility.taskConnectionCollapsedTexture == null)
           BehaviorDesignerUtility.InitTaskConnectionCollapsedTexture();
         return BehaviorDesignerUtility.taskConnectionCollapsedTexture;
       }
@@ -705,7 +705,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.contentSeparatorTexture == (Object) null)
+        if (BehaviorDesignerUtility.contentSeparatorTexture == null)
           BehaviorDesignerUtility.InitContentSeparatorTexture();
         return BehaviorDesignerUtility.contentSeparatorTexture;
       }
@@ -715,7 +715,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.docTexture == (Object) null)
+        if (BehaviorDesignerUtility.docTexture == null)
           BehaviorDesignerUtility.InitDocTexture();
         return BehaviorDesignerUtility.docTexture;
       }
@@ -725,7 +725,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.gearTexture == (Object) null)
+        if (BehaviorDesignerUtility.gearTexture == null)
           BehaviorDesignerUtility.InitGearTexture();
         return BehaviorDesignerUtility.gearTexture;
       }
@@ -733,7 +733,7 @@ namespace BehaviorDesigner.Editor
 
     public static Texture2D ColorSelectorTexture(int colorIndex)
     {
-      if ((Object) BehaviorDesignerUtility.colorSelectorTexture[colorIndex] == (Object) null)
+      if (BehaviorDesignerUtility.colorSelectorTexture[colorIndex] == null)
         BehaviorDesignerUtility.InitColorSelectorTexture(colorIndex);
       return BehaviorDesignerUtility.colorSelectorTexture[colorIndex];
     }
@@ -742,7 +742,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableButtonTexture == null)
           BehaviorDesignerUtility.InitVariableButtonTexture();
         return BehaviorDesignerUtility.variableButtonTexture;
       }
@@ -752,7 +752,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableButtonSelectedTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableButtonSelectedTexture == null)
           BehaviorDesignerUtility.InitVariableButtonSelectedTexture();
         return BehaviorDesignerUtility.variableButtonSelectedTexture;
       }
@@ -762,7 +762,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableWatchButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableWatchButtonTexture == null)
           BehaviorDesignerUtility.InitVariableWatchButtonTexture();
         return BehaviorDesignerUtility.variableWatchButtonTexture;
       }
@@ -772,7 +772,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableWatchButtonSelectedTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableWatchButtonSelectedTexture == null)
           BehaviorDesignerUtility.InitVariableWatchButtonSelectedTexture();
         return BehaviorDesignerUtility.variableWatchButtonSelectedTexture;
       }
@@ -782,7 +782,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.referencedTexture == (Object) null)
+        if (BehaviorDesignerUtility.referencedTexture == null)
           BehaviorDesignerUtility.InitReferencedTexture();
         return BehaviorDesignerUtility.referencedTexture;
       }
@@ -792,7 +792,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.conditionalAbortSelfTexture == (Object) null)
+        if (BehaviorDesignerUtility.conditionalAbortSelfTexture == null)
           BehaviorDesignerUtility.InitConditionalAbortSelfTexture();
         return BehaviorDesignerUtility.conditionalAbortSelfTexture;
       }
@@ -802,7 +802,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.conditionalAbortLowerPriorityTexture == (Object) null)
+        if (BehaviorDesignerUtility.conditionalAbortLowerPriorityTexture == null)
           BehaviorDesignerUtility.InitConditionalAbortLowerPriorityTexture();
         return BehaviorDesignerUtility.conditionalAbortLowerPriorityTexture;
       }
@@ -812,7 +812,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.conditionalAbortBothTexture == (Object) null)
+        if (BehaviorDesignerUtility.conditionalAbortBothTexture == null)
           BehaviorDesignerUtility.InitConditionalAbortBothTexture();
         return BehaviorDesignerUtility.conditionalAbortBothTexture;
       }
@@ -822,7 +822,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.deleteButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.deleteButtonTexture == null)
           BehaviorDesignerUtility.InitDeleteButtonTexture();
         return BehaviorDesignerUtility.deleteButtonTexture;
       }
@@ -832,7 +832,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableDeleteButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableDeleteButtonTexture == null)
           BehaviorDesignerUtility.InitVariableDeleteButtonTexture();
         return BehaviorDesignerUtility.variableDeleteButtonTexture;
       }
@@ -842,7 +842,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.downArrowButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.downArrowButtonTexture == null)
           BehaviorDesignerUtility.InitDownArrowButtonTexture();
         return BehaviorDesignerUtility.downArrowButtonTexture;
       }
@@ -852,7 +852,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.upArrowButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.upArrowButtonTexture == null)
           BehaviorDesignerUtility.InitUpArrowButtonTexture();
         return BehaviorDesignerUtility.upArrowButtonTexture;
       }
@@ -862,7 +862,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.variableMapButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.variableMapButtonTexture == null)
           BehaviorDesignerUtility.InitVariableMapButtonTexture();
         return BehaviorDesignerUtility.variableMapButtonTexture;
       }
@@ -872,7 +872,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.identifyButtonTexture == (Object) null)
+        if (BehaviorDesignerUtility.identifyButtonTexture == null)
           BehaviorDesignerUtility.InitIdentifyButtonTexture();
         return BehaviorDesignerUtility.identifyButtonTexture;
       }
@@ -882,7 +882,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.breakpointTexture == (Object) null)
+        if (BehaviorDesignerUtility.breakpointTexture == null)
           BehaviorDesignerUtility.InitBreakpointTexture();
         return BehaviorDesignerUtility.breakpointTexture;
       }
@@ -892,7 +892,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.errorIconTexture == (Object) null)
+        if (BehaviorDesignerUtility.errorIconTexture == null)
           BehaviorDesignerUtility.InitErrorIconTexture();
         return BehaviorDesignerUtility.errorIconTexture;
       }
@@ -902,7 +902,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.smallErrorIconTexture == (Object) null)
+        if (BehaviorDesignerUtility.smallErrorIconTexture == null)
           BehaviorDesignerUtility.InitSmallErrorIconTexture();
         return BehaviorDesignerUtility.smallErrorIconTexture;
       }
@@ -912,7 +912,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.enableTaskTexture == (Object) null)
+        if (BehaviorDesignerUtility.enableTaskTexture == null)
           BehaviorDesignerUtility.InitEnableTaskTexture();
         return BehaviorDesignerUtility.enableTaskTexture;
       }
@@ -922,7 +922,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.disableTaskTexture == (Object) null)
+        if (BehaviorDesignerUtility.disableTaskTexture == null)
           BehaviorDesignerUtility.InitDisableTaskTexture();
         return BehaviorDesignerUtility.disableTaskTexture;
       }
@@ -932,7 +932,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.expandTaskTexture == (Object) null)
+        if (BehaviorDesignerUtility.expandTaskTexture == null)
           BehaviorDesignerUtility.InitExpandTaskTexture();
         return BehaviorDesignerUtility.expandTaskTexture;
       }
@@ -942,7 +942,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.collapseTaskTexture == (Object) null)
+        if (BehaviorDesignerUtility.collapseTaskTexture == null)
           BehaviorDesignerUtility.InitCollapseTaskTexture();
         return BehaviorDesignerUtility.collapseTaskTexture;
       }
@@ -952,7 +952,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.executionSuccessTexture == (Object) null)
+        if (BehaviorDesignerUtility.executionSuccessTexture == null)
           BehaviorDesignerUtility.InitExecutionSuccessTexture();
         return BehaviorDesignerUtility.executionSuccessTexture;
       }
@@ -962,7 +962,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.executionFailureTexture == (Object) null)
+        if (BehaviorDesignerUtility.executionFailureTexture == null)
           BehaviorDesignerUtility.InitExecutionFailureTexture();
         return BehaviorDesignerUtility.executionFailureTexture;
       }
@@ -972,7 +972,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.executionSuccessRepeatTexture == (Object) null)
+        if (BehaviorDesignerUtility.executionSuccessRepeatTexture == null)
           BehaviorDesignerUtility.InitExecutionSuccessRepeatTexture();
         return BehaviorDesignerUtility.executionSuccessRepeatTexture;
       }
@@ -982,7 +982,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.executionFailureRepeatTexture == (Object) null)
+        if (BehaviorDesignerUtility.executionFailureRepeatTexture == null)
           BehaviorDesignerUtility.InitExecutionFailureRepeatTexture();
         return BehaviorDesignerUtility.executionFailureRepeatTexture;
       }
@@ -992,7 +992,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.historyBackwardTexture == (Object) null)
+        if (BehaviorDesignerUtility.historyBackwardTexture == null)
           BehaviorDesignerUtility.InitHistoryBackwardTexture();
         return BehaviorDesignerUtility.historyBackwardTexture;
       }
@@ -1002,7 +1002,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.historyForwardTexture == (Object) null)
+        if (BehaviorDesignerUtility.historyForwardTexture == null)
           BehaviorDesignerUtility.InitHistoryForwardTexture();
         return BehaviorDesignerUtility.historyForwardTexture;
       }
@@ -1012,7 +1012,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.playTexture == (Object) null)
+        if (BehaviorDesignerUtility.playTexture == null)
           BehaviorDesignerUtility.InitPlayTexture();
         return BehaviorDesignerUtility.playTexture;
       }
@@ -1022,7 +1022,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.pauseTexture == (Object) null)
+        if (BehaviorDesignerUtility.pauseTexture == null)
           BehaviorDesignerUtility.InitPauseTexture();
         return BehaviorDesignerUtility.pauseTexture;
       }
@@ -1032,7 +1032,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.stepTexture == (Object) null)
+        if (BehaviorDesignerUtility.stepTexture == null)
           BehaviorDesignerUtility.InitStepTexture();
         return BehaviorDesignerUtility.stepTexture;
       }
@@ -1042,7 +1042,7 @@ namespace BehaviorDesigner.Editor
     {
       get
       {
-        if ((Object) BehaviorDesignerUtility.screenshotBackgroundTexture == (Object) null)
+        if (BehaviorDesignerUtility.screenshotBackgroundTexture == null)
           BehaviorDesignerUtility.InitScreenshotBackgroundTexture();
         return BehaviorDesignerUtility.screenshotBackgroundTexture;
       }
@@ -1147,11 +1147,11 @@ namespace BehaviorDesigner.Editor
       if (BehaviorDesignerUtility.textureCache.ContainsKey(imageName.Replace(".png", "")))
         return BehaviorDesignerUtility.textureCache[imageName.Replace(".png", "")];
       Texture2D tex = (Texture2D) null;
-      string name1 = string.Format("{0}{1}", !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName);
+      string name1 = string.Format("{0}{1}", !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName);
       // Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name1);
       // if (manifestResourceStream == null)
       // {
-      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName);
+      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName);
       //   manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name2);
       // }
       // if (manifestResourceStream != null)
@@ -1175,11 +1175,11 @@ namespace BehaviorDesigner.Editor
       // if (BehaviorDesignerUtility.textureCache.ContainsKey(imageName))
       //   return BehaviorDesignerUtility.textureCache[imageName];
       // Texture2D tex = (Texture2D) null;
-      // string name1 = string.Format("{0}{1}", !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName);
+      // string name1 = string.Format("{0}{1}", !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName);
       // Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name1);
       // if (manifestResourceStream == null)
       // {
-      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName);
+      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName);
       //   manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name2);
       // }
       // if (manifestResourceStream != null)
@@ -1188,8 +1188,8 @@ namespace BehaviorDesigner.Editor
       //   tex.LoadImage(BehaviorDesignerUtility.ReadToEnd(manifestResourceStream));
       //   manifestResourceStream.Close();
       // }
-      // if ((Object) tex == (Object) null)
-      //   Debug.Log((object) string.Format("{0}/Images/Task Backgrounds/{1}{2}", (object) BehaviorDesignerUtility.GetEditorBaseDirectory((Object) obj), !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName));
+      // if (tex == null)
+      //   Debug.Log(string.Format("{0}/Images/Task Backgrounds/{1}{2}", BehaviorDesignerUtility.GetEditorBaseDirectory(obj), !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName));
       // tex.hideFlags = HideFlags.HideAndDontSave;
       // BehaviorDesignerUtility.textureCache.Add(imageName, tex);
       // return tex;
@@ -1205,7 +1205,7 @@ namespace BehaviorDesigner.Editor
       // Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name1);
       // if (manifestResourceStream == null)
       // {
-      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? (object) string.Empty : (!EditorGUIUtility.isProSkin ? (object) "Light" : (object) "Dark"), (object) imageName);
+      //   string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}{1}", !useSkinColor ? string.Empty : (!EditorGUIUtility.isProSkin ? "Light" : "Dark"), imageName);
       //   manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name2);
       // }
       // if (manifestResourceStream != null)
@@ -1229,7 +1229,7 @@ namespace BehaviorDesigner.Editor
       Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name1);
       if (manifestResourceStream == null)
       {
-        string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}", (object) iconName.Replace("{SkinColor}", !EditorGUIUtility.isProSkin ? "Light" : "Dark"));
+        string name2 = string.Format("BehaviorDesignerEditor.Resources.{0}", iconName.Replace("{SkinColor}", !EditorGUIUtility.isProSkin ? "Light" : "Dark"));
         manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name2);
       }
       if (manifestResourceStream != null)
@@ -1238,9 +1238,9 @@ namespace BehaviorDesigner.Editor
         tex.LoadImage(BehaviorDesignerUtility.ReadToEnd(manifestResourceStream));
         manifestResourceStream.Close();
       }
-      if ((Object) tex == (Object) null)
+      if (tex == null)
         tex = AssetDatabase.LoadAssetAtPath(iconName.Replace("{SkinColor}", !EditorGUIUtility.isProSkin ? "Light" : "Dark"), typeof (Texture2D)) as Texture2D;
-      if ((Object) tex != (Object) null)
+      if (tex != null)
         tex.hideFlags = HideFlags.HideAndDontSave;
       BehaviorDesignerUtility.iconCache.Add(iconName, tex);
       return tex;

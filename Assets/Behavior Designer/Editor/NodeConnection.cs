@@ -76,7 +76,7 @@ namespace BehaviorDesigner.Editor
         public void DrawConnection(Vector2 source, Vector2 destination, bool disabled)
         {
             Color color = !disabled ? Color.white : new Color(0.7f, 0.7f, 0.7f);
-            bool flag = (Object) this.destinationNodeDesigner != (Object) null &&
+            bool flag = this.destinationNodeDesigner != null &&
                         this.destinationNodeDesigner.Task != null &&
                         (double) this.destinationNodeDesigner.Task.NodeData.PushTime != -1.0 &&
                         (double) this.destinationNodeDesigner.Task.NodeData.PushTime >=
@@ -90,7 +90,7 @@ namespace BehaviorDesigner.Editor
                         : this.selectedDisabledProColor);
             else if (flag)
                 color = !EditorGUIUtility.isProSkin ? this.taskRunningStandardColor : this.taskRunningProColor;
-            else if ((double) num != 0.0 && (Object) this.destinationNodeDesigner != (Object) null &&
+            else if ((double) num != 0.0 && this.destinationNodeDesigner != null &&
                      (this.destinationNodeDesigner.Task != null &&
                       (double) this.destinationNodeDesigner.Task.NodeData.PopTime != -1.0) &&
                      ((double) this.destinationNodeDesigner.Task.NodeData.PopTime <=

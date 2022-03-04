@@ -50,7 +50,7 @@ namespace BehaviorDesigner.Editor
 
     public void OnEnable()
     {
-      this.m_WelcomeScreenImage = (Texture) BehaviorDesignerUtility.LoadTexture("WelcomeScreenHeader.png", false, (Object) this);
+      this.m_WelcomeScreenImage = (Texture) BehaviorDesignerUtility.LoadTexture("WelcomeScreenHeader.png", false, this);
       this.m_SamplesImage = (Texture) BehaviorDesignerUtility.LoadIcon("WelcomeScreenSamplesIcon.png", (ScriptableObject) this);
       this.m_DocImage = (Texture) BehaviorDesignerUtility.LoadIcon("WelcomeScreenDocumentationIcon.png", (ScriptableObject) this);
       this.m_VideoImage = (Texture) BehaviorDesignerUtility.LoadIcon("WelcomeScreenVideosIcon.png", (ScriptableObject) this);

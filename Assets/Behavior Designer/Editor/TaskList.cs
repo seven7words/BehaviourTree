@@ -127,9 +127,9 @@ namespace BehaviorDesigner.Editor
         for (int index = 0; index < this.mCategoryList[2].Tasks.Count; ++index)
         {
           if (parentName.Equals(string.Empty))
-            genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}", (object) this.mCategoryList[2].Fullpath, (object) this.mCategoryList[2].Tasks[index].Name.ToString())), this.mCategoryList[2].Tasks[index].Type.Equals(selectedTaskType), menuFunction, (object) this.mCategoryList[2].Tasks[index].Type);
+            genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}", this.mCategoryList[2].Fullpath, this.mCategoryList[2].Tasks[index].Name.ToString())), this.mCategoryList[2].Tasks[index].Type.Equals(selectedTaskType), menuFunction, this.mCategoryList[2].Tasks[index].Type);
           else
-            genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}/{2}", (object) parentName, (object) this.mCategoryList[22].Fullpath, (object) this.mCategoryList[2].Tasks[index].Name.ToString())), this.mCategoryList[2].Tasks[index].Type.Equals(selectedTaskType), menuFunction, (object) this.mCategoryList[2].Tasks[index].Type);
+            genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}/{2}", parentName, this.mCategoryList[22].Fullpath, this.mCategoryList[2].Tasks[index].Name.ToString())), this.mCategoryList[2].Tasks[index].Type.Equals(selectedTaskType), menuFunction, this.mCategoryList[2].Tasks[index].Type);
         }
       }
       this.AddCategoryTasksToMenu(ref genericMenu, this.mCategoryList[2].Subcategories, selectedTaskType, parentName, menuFunction);
@@ -151,9 +151,9 @@ namespace BehaviorDesigner.Editor
           for (int index2 = 0; index2 < categoryList[index1].Tasks.Count; ++index2)
           {
             if (parentName.Equals(string.Empty))
-              genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}", (object) categoryList[index1].Fullpath, (object) categoryList[index1].Tasks[index2].Name.ToString())), categoryList[index1].Tasks[index2].Type.Equals(selectedTaskType), menuFunction, (object) categoryList[index1].Tasks[index2].Type);
+              genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}", categoryList[index1].Fullpath, categoryList[index1].Tasks[index2].Name.ToString())), categoryList[index1].Tasks[index2].Type.Equals(selectedTaskType), menuFunction, categoryList[index1].Tasks[index2].Type);
             else
-              genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}/{2}", (object) parentName, (object) categoryList[index1].Fullpath, (object) categoryList[index1].Tasks[index2].Name.ToString())), categoryList[index1].Tasks[index2].Type.Equals(selectedTaskType), menuFunction, (object) categoryList[index1].Tasks[index2].Type);
+              genericMenu.AddItem(new GUIContent(string.Format("{0}/{1}/{2}", parentName, categoryList[index1].Fullpath, categoryList[index1].Tasks[index2].Name.ToString())), categoryList[index1].Tasks[index2].Type.Equals(selectedTaskType), menuFunction, categoryList[index1].Tasks[index2].Type);
           }
         }
       }
@@ -393,9 +393,9 @@ namespace BehaviorDesigner.Editor
       }
     }
 
-    private bool PreviouslyExpanded(int id) => EditorPrefs.GetBool(string.Format("BehaviorDesignerTaskList{0}", (object) id), true);
+    private bool PreviouslyExpanded(int id) => EditorPrefs.GetBool(string.Format("BehaviorDesignerTaskList{0}", id), true);
 
-    private void SetExpanded(int id, bool visible) => EditorPrefs.SetBool(string.Format("BehaviorDesignerTaskList{0}", (object) id), visible);
+    private void SetExpanded(int id, bool visible) => EditorPrefs.SetBool(string.Format("BehaviorDesignerTaskList{0}", id), visible);
 
     public enum TaskTypes
     {

@@ -16,7 +16,7 @@ namespace BehaviorDesigner.Runtime
 {
   public static class MiniJSON
   {
-    public static object Deserialize(string json) => json == null ? (object) null : MiniJSON.Parser.Parse(json);
+    public static object Deserialize(string json) => json == null ? null : MiniJSON.Parser.Parse(json);
 
     public static string Serialize(object obj) => MiniJSON.Serializer.Serialize(obj);
 
@@ -119,25 +119,25 @@ label_8:
         switch (token)
         {
           case MiniJSON.Parser.TOKEN.CURLY_OPEN:
-            return (object) this.ParseObject();
+            return this.ParseObject();
           case MiniJSON.Parser.TOKEN.SQUARED_OPEN:
-            return (object) this.ParseArray();
+            return this.ParseArray();
           case MiniJSON.Parser.TOKEN.STRING:
-            return (object) this.ParseString();
+            return this.ParseString();
           case MiniJSON.Parser.TOKEN.NUMBER:
             return this.ParseNumber();
           case MiniJSON.Parser.TOKEN.INFINITY:
-            return (object) float.PositiveInfinity;
+            return float.PositiveInfinity;
           case MiniJSON.Parser.TOKEN.NEGINFINITY:
-            return (object) float.NegativeInfinity;
+            return float.NegativeInfinity;
           case MiniJSON.Parser.TOKEN.TRUE:
-            return (object) true;
+            return true;
           case MiniJSON.Parser.TOKEN.FALSE:
-            return (object) false;
+            return false;
           case MiniJSON.Parser.TOKEN.NULL:
-            return (object) null;
+            return null;
           default:
-            return (object) null;
+            return null;
         }
       }
 
@@ -216,11 +216,11 @@ label_8:
         {
           long result;
           long.TryParse(nextWord, NumberStyles.Any, (IFormatProvider) CultureInfo.InvariantCulture, out result);
-          return (object) result;
+          return result;
         }
         double result1;
         double.TryParse(nextWord, NumberStyles.Any, (IFormatProvider) CultureInfo.InvariantCulture, out result1);
-        return (object) result1;
+        return result1;
       }
 
       private void EatWhitespace()

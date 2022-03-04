@@ -21,7 +21,7 @@ namespace BehaviorDesigner.Editor
       string str1;
       if (x.GetType().IsSubclassOf(typeof (Type)))
       {
-        Type t = (object) x as Type;
+        Type t = x as Type;
         string str2 = this.TypePrefix(t) + "/";
         TaskCategoryAttribute[] customAttributes1;
         if ((customAttributes1 = t.GetCustomAttributes(typeof (TaskCategoryAttribute), true) as TaskCategoryAttribute[]).Length > 0)
@@ -47,7 +47,7 @@ namespace BehaviorDesigner.Editor
       string str4;
       if (y.GetType().IsSubclassOf(typeof (Type)))
       {
-        Type t = (object) y as Type;
+        Type t = y as Type;
         string str2 = this.TypePrefix(t) + "/";
         TaskCategoryAttribute[] customAttributes1;
         if ((customAttributes1 = t.GetCustomAttributes(typeof (TaskCategoryAttribute), true) as TaskCategoryAttribute[]).Length > 0)

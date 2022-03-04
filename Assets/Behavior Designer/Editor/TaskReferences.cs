@@ -33,25 +33,25 @@ namespace BehaviorDesigner.Editor
       {
         if (!serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.Equals(typeof (Task)) || serializableFields[index1].FieldType.IsSubclassOf(typeof (Task))))
         {
-          if (serializableFields[index1].GetValue((object) task) is Task referencedTask4)
+          if (serializableFields[index1].GetValue(task) is Task referencedTask4)
           {
             Task referencedTask = TaskReferences.FindReferencedTask(behaviorSource, referencedTask4);
             if (referencedTask != null)
-              serializableFields[index1].SetValue((object) task, (object) referencedTask);
+              serializableFields[index1].SetValue(task, referencedTask);
           }
         }
-        else if (serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.GetElementType().Equals(typeof (Task)) || serializableFields[index1].FieldType.GetElementType().IsSubclassOf(typeof (Task))) && serializableFields[index1].GetValue((object) task) is Task[] taskArray)
+        else if (serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.GetElementType().Equals(typeof (Task)) || serializableFields[index1].FieldType.GetElementType().IsSubclassOf(typeof (Task))) && serializableFields[index1].GetValue(task) is Task[] taskArray)
         {
           IList instance1 = Activator.CreateInstance(typeof (List<>).MakeGenericType(serializableFields[index1].FieldType.GetElementType())) as IList;
           for (int index2 = 0; index2 < taskArray.Length; ++index2)
           {
             Task referencedTask2 = TaskReferences.FindReferencedTask(behaviorSource, taskArray[index2]);
             if (referencedTask2 != null)
-              instance1.Add((object) referencedTask2);
+              instance1.Add(referencedTask2);
           }
           Array instance2 = Array.CreateInstance(serializableFields[index1].FieldType.GetElementType(), instance1.Count);
           instance1.CopyTo(instance2, 0);
-          serializableFields[index1].SetValue((object) task, (object) instance2);
+          serializableFields[index1].SetValue(task, instance2);
         }
       }
       if (!task.GetType().IsSubclassOf(typeof (ParentTask)))
@@ -113,7 +113,7 @@ namespace BehaviorDesigner.Editor
     {
       if (TaskUtility.CompareType(task.GetType(), "BehaviorDesigner.Runtime.Tasks.ConditionalEvaluator"))
       {
-        object obj = task.GetType().GetField("conditionalTask").GetValue((object) task);
+        object obj = task.GetType().GetField("conditionalTask").GetValue(task);
         if (obj != null)
           task = obj as Task;
       }
@@ -122,25 +122,25 @@ namespace BehaviorDesigner.Editor
       {
         if (!serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.Equals(typeof (Task)) || serializableFields[index1].FieldType.IsSubclassOf(typeof (Task))))
         {
-          if (serializableFields[index1].GetValue((object) task) is Task referencedTask4 && !referencedTask4.Owner.Equals((object) behavior))
+          if (serializableFields[index1].GetValue(task) is Task referencedTask4 && !referencedTask4.Owner.Equals(behavior))
           {
             Task referencedTask = TaskReferences.FindReferencedTask(referencedTask4, taskList);
             if (referencedTask != null)
-              serializableFields[index1].SetValue((object) task, (object) referencedTask);
+              serializableFields[index1].SetValue(task, referencedTask);
           }
         }
-        else if (serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.GetElementType().Equals(typeof (Task)) || serializableFields[index1].FieldType.GetElementType().IsSubclassOf(typeof (Task))) && serializableFields[index1].GetValue((object) task) is Task[] taskArray)
+        else if (serializableFields[index1].FieldType.IsArray && (serializableFields[index1].FieldType.GetElementType().Equals(typeof (Task)) || serializableFields[index1].FieldType.GetElementType().IsSubclassOf(typeof (Task))) && serializableFields[index1].GetValue(task) is Task[] taskArray)
         {
           IList instance1 = Activator.CreateInstance(typeof (List<>).MakeGenericType(serializableFields[index1].FieldType.GetElementType())) as IList;
           for (int index2 = 0; index2 < taskArray.Length; ++index2)
           {
             Task referencedTask2 = TaskReferences.FindReferencedTask(taskArray[index2], taskList);
             if (referencedTask2 != null)
-              instance1.Add((object) referencedTask2);
+              instance1.Add(referencedTask2);
           }
           Array instance2 = Array.CreateInstance(serializableFields[index1].FieldType.GetElementType(), instance1.Count);
           instance1.CopyTo(instance2, 0);
-          serializableFields[index1].SetValue((object) task, (object) instance2);
+          serializableFields[index1].SetValue(task, instance2);
         }
       }
     }

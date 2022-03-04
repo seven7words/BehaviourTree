@@ -36,9 +36,9 @@ namespace BehaviorDesigner.Editor
           BinarySerialization.SaveSharedVariable(behaviorSource.Variables[index], 0);
         }
       }
-      if (!object.ReferenceEquals((object) behaviorSource.EntryTask, (object) null))
+      if (!object.ReferenceEquals(behaviorSource.EntryTask, null))
         BinarySerialization.SaveTask(behaviorSource.EntryTask, -1);
-      if (!object.ReferenceEquals((object) behaviorSource.RootTask, (object) null))
+      if (!object.ReferenceEquals(behaviorSource.RootTask, null))
         BinarySerialization.SaveTask(behaviorSource.RootTask, 0);
       if (behaviorSource.DetachedTasks != null)
       {
@@ -49,14 +49,14 @@ namespace BehaviorDesigner.Editor
       BinarySerialization.taskSerializationData.fieldSerializationData.byteDataArray = BinarySerialization.taskSerializationData.fieldSerializationData.byteData.ToArray();
       BinarySerialization.taskSerializationData.fieldSerializationData.byteData = (List<byte>) null;
       behaviorSource.TaskData = BinarySerialization.taskSerializationData;
-      if (behaviorSource.Owner == null || behaviorSource.Owner.Equals((object) null))
+      if (behaviorSource.Owner == null || behaviorSource.Owner.Equals(null))
         return;
       BehaviorDesignerUtility.SetObjectDirty(behaviorSource.Owner.GetObject());
     }
 
     public static void Save(GlobalVariables globalVariables)
     {
-      if ((Object) globalVariables == (Object) null)
+      if (globalVariables == null)
         return;
       BinarySerialization.fieldIndex = 0;
       globalVariables.VariableData = new VariableSerializationData();
@@ -71,7 +71,7 @@ namespace BehaviorDesigner.Editor
       globalVariables.Version = "1.6.8";
       globalVariables.VariableData.fieldSerializationData.byteDataArray = globalVariables.VariableData.fieldSerializationData.byteData.ToArray();
       globalVariables.VariableData.fieldSerializationData.byteData = (List<byte>) null;
-      BehaviorDesignerUtility.SetObjectDirty((Object) globalVariables);
+      BehaviorDesignerUtility.SetObjectDirty(globalVariables);
     }
 
     private static void SaveTask(Task task, int parentTaskIndex)
@@ -79,12 +79,12 @@ namespace BehaviorDesigner.Editor
       BinarySerialization.taskSerializationData.types.Add(task.GetType().ToString());
       BinarySerialization.taskSerializationData.parentIndex.Add(parentTaskIndex);
       BinarySerialization.taskSerializationData.startIndex.Add(BinarySerialization.fieldSerializationData.startIndex.Count);
-      BinarySerialization.SaveField(typeof (int), "ID", 0, (object) task.ID);
-      BinarySerialization.SaveField(typeof (string), "FriendlyName", 0, (object) task.FriendlyName);
-      BinarySerialization.SaveField(typeof (bool), "IsInstant", 0, (object) task.IsInstant);
-      BinarySerialization.SaveField(typeof (bool), "Disabled", 0, (object) task.Disabled);
+      BinarySerialization.SaveField(typeof (int), "ID", 0, task.ID);
+      BinarySerialization.SaveField(typeof (string), "FriendlyName", 0, task.FriendlyName);
+      BinarySerialization.SaveField(typeof (bool), "IsInstant", 0, task.IsInstant);
+      BinarySerialization.SaveField(typeof (bool), "Disabled", 0, task.Disabled);
       BinarySerialization.SaveNodeData(task.NodeData);
-      BinarySerialization.SaveFields((object) task, 0);
+      BinarySerialization.SaveFields(task, 0);
       if (!(task is ParentTask))
         return;
       ParentTask parentTask = task as ParentTask;
@@ -96,35 +96,35 @@ namespace BehaviorDesigner.Editor
 
     private static void SaveNodeData(NodeData nodeData)
     {
-      BinarySerialization.SaveField(typeof (Vector2), "NodeDataOffset", 0, (object) nodeData.Offset);
-      BinarySerialization.SaveField(typeof (string), "NodeDataComment", 0, (object) nodeData.Comment);
-      BinarySerialization.SaveField(typeof (bool), "NodeDataIsBreakpoint", 0, (object) nodeData.IsBreakpoint);
-      BinarySerialization.SaveField(typeof (bool), "NodeDataCollapsed", 0, (object) nodeData.Collapsed);
-      BinarySerialization.SaveField(typeof (int), "NodeDataColorIndex", 0, (object) nodeData.ColorIndex);
-      BinarySerialization.SaveField(typeof (List<string>), "NodeDataWatchedFields", 0, (object) nodeData.WatchedFieldNames);
+      BinarySerialization.SaveField(typeof (Vector2), "NodeDataOffset", 0, nodeData.Offset);
+      BinarySerialization.SaveField(typeof (string), "NodeDataComment", 0, nodeData.Comment);
+      BinarySerialization.SaveField(typeof (bool), "NodeDataIsBreakpoint", 0, nodeData.IsBreakpoint);
+      BinarySerialization.SaveField(typeof (bool), "NodeDataCollapsed", 0, nodeData.Collapsed);
+      BinarySerialization.SaveField(typeof (int), "NodeDataColorIndex", 0, nodeData.ColorIndex);
+      BinarySerialization.SaveField(typeof (List<string>), "NodeDataWatchedFields", 0, nodeData.WatchedFieldNames);
     }
 
     private static void SaveSharedVariable(SharedVariable sharedVariable, int hashPrefix)
     {
       if (sharedVariable == null)
         return;
-      BinarySerialization.SaveField(typeof (string), "Type", hashPrefix, (object) sharedVariable.GetType().ToString());
-      BinarySerialization.SaveField(typeof (string), "Name", hashPrefix, (object) sharedVariable.Name);
+      BinarySerialization.SaveField(typeof (string), "Type", hashPrefix, sharedVariable.GetType().ToString());
+      BinarySerialization.SaveField(typeof (string), "Name", hashPrefix, sharedVariable.Name);
       if (sharedVariable.IsShared)
-        BinarySerialization.SaveField(typeof (bool), "IsShared", hashPrefix, (object) sharedVariable.IsShared);
+        BinarySerialization.SaveField(typeof (bool), "IsShared", hashPrefix, sharedVariable.IsShared);
       if (sharedVariable.IsGlobal)
-        BinarySerialization.SaveField(typeof (bool), "IsGlobal", hashPrefix, (object) sharedVariable.IsGlobal);
+        BinarySerialization.SaveField(typeof (bool), "IsGlobal", hashPrefix, sharedVariable.IsGlobal);
       if (sharedVariable.IsDynamic)
-        BinarySerialization.SaveField(typeof (bool), "IsDynamic", hashPrefix, (object) sharedVariable.IsDynamic);
+        BinarySerialization.SaveField(typeof (bool), "IsDynamic", hashPrefix, sharedVariable.IsDynamic);
       if (!string.IsNullOrEmpty(sharedVariable.Tooltip))
-        BinarySerialization.SaveField(typeof (string), "Tooltip", hashPrefix, (object) sharedVariable.Tooltip);
+        BinarySerialization.SaveField(typeof (string), "Tooltip", hashPrefix, sharedVariable.Tooltip);
       if (!string.IsNullOrEmpty(sharedVariable.PropertyMapping))
       {
-        BinarySerialization.SaveField(typeof (string), "PropertyMapping", hashPrefix, (object) sharedVariable.PropertyMapping);
-        if (!object.Equals((object) sharedVariable.PropertyMappingOwner, (object) null))
-          BinarySerialization.SaveField(typeof (GameObject), "PropertyMappingOwner", hashPrefix, (object) sharedVariable.PropertyMappingOwner);
+        BinarySerialization.SaveField(typeof (string), "PropertyMapping", hashPrefix, sharedVariable.PropertyMapping);
+        if (!object.Equals(sharedVariable.PropertyMappingOwner, null))
+          BinarySerialization.SaveField(typeof (GameObject), "PropertyMappingOwner", hashPrefix, sharedVariable.PropertyMappingOwner);
       }
-      BinarySerialization.SaveFields((object) sharedVariable, hashPrefix);
+      BinarySerialization.SaveFields(sharedVariable, hashPrefix);
     }
 
     private static void SaveFields(object obj, int hashPrefix)
@@ -136,7 +136,7 @@ namespace BehaviorDesigner.Editor
         if (!BehaviorDesignerUtility.HasAttribute(allFields[index], typeof (NonSerializedAttribute)) && (!allFields[index].IsPrivate && !allFields[index].IsFamily || BehaviorDesignerUtility.HasAttribute(allFields[index], typeof (SerializeField))) && (!(obj is ParentTask) || !allFields[index].Name.Equals("children")))
         {
           object objA = allFields[index].GetValue(obj);
-          if (!object.ReferenceEquals(objA, (object) null))
+          if (!object.ReferenceEquals(objA, null))
             BinarySerialization.SaveField(allFields[index].FieldType, allFields[index].Name, hashPrefix, objA, allFields[index]);
         }
       }
@@ -181,7 +181,7 @@ namespace BehaviorDesigner.Editor
             return;
           for (int index = 0; index < list2.Count; ++index)
           {
-            if (object.ReferenceEquals(list2[index], (object) null))
+            if (object.ReferenceEquals(list2[index], null))
               BinarySerialization.AddByteData((ICollection<byte>) BinarySerialization.IntToBytes(-1));
             else
               BinarySerialization.SaveField(fieldType1, index.ToString(), hashPrefix1 / (index + 1), list2[index], fieldInfo);
@@ -249,12 +249,12 @@ namespace BehaviorDesigner.Editor
         BinarySerialization.AddByteData(BinarySerialization.AnimationCurveToBytes((AnimationCurve) value));
       else if (fieldType.IsClass || fieldType.IsValueType && !fieldType.IsPrimitive)
       {
-        if (object.ReferenceEquals(value, (object) null))
+        if (object.ReferenceEquals(value, null))
           value = Activator.CreateInstance(fieldType, true);
         BinarySerialization.SaveFields(value, hashPrefix1);
       }
       else
-        Debug.LogError((object) ("Missing Serialization for " + (object) fieldType));
+        Debug.LogError(("Missing Serialization for " + fieldType));
     }
 
     private static byte[] IntToBytes(int value) => BitConverter.GetBytes(value);

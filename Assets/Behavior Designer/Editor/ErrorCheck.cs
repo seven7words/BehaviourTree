@@ -27,7 +27,7 @@ namespace BehaviorDesigner.Editor
       List<ErrorDetails> errorDetails = (List<ErrorDetails>) null;
       ErrorCheck.fieldHashes.Clear();
       BehaviorSource behaviorSource1 = behaviorSource;
-      if (!Application.isPlaying && behaviorSource.Owner is Behavior && (Object) (behaviorSource.Owner as Behavior).ExternalBehavior != (Object) null)
+      if (!Application.isPlaying && behaviorSource.Owner is Behavior && (behaviorSource.Owner as Behavior).ExternalBehavior != null)
         behaviorSource = (behaviorSource.Owner as Behavior).ExternalBehavior.BehaviorSource;
       bool projectLevelBehavior = AssetDatabase.GetAssetPath(behaviorSource.Owner.GetObject()).Length > 0;
       if (behaviorSource.EntryTask != null)
@@ -45,7 +45,7 @@ namespace BehaviorDesigner.Editor
           if (behaviorSource1.Variables[index] != null)
           {
             object obj = behaviorSource1.Variables[index].GetValue();
-            if (obj != null && (object) (obj as Object) != null && AssetDatabase.GetAssetPath(obj as Object).Length == 0)
+            if (obj != null && (obj as Object) != null && AssetDatabase.GetAssetPath(obj as Object).Length == 0)
               ErrorCheck.AddError(ref errorDetails, ErrorDetails.ErrorType.InvalidVariableReference, (Task) null, behaviorSource1.Variables[index].Name);
           }
         }
@@ -66,7 +66,7 @@ namespace BehaviorDesigner.Editor
       {
         FieldInfo[] serializableFields = TaskUtility.GetSerializableFields(task.GetType());
         for (int index = 0; index < serializableFields.Length; ++index)
-          ErrorCheck.CheckField(task, projectLevelBehavior, ref errorDetails, serializableFields[index], 0, serializableFields[index].GetValue((object) task));
+          ErrorCheck.CheckField(task, projectLevelBehavior, ref errorDetails, serializableFields[index], 0, serializableFields[index].GetValue(task));
       }
       if (!(task is ParentTask) || task.NodeData.NodeDesigner == null || (task.NodeData.NodeDesigner as NodeDesigner).IsEntryDisplay)
         return;
@@ -105,14 +105,14 @@ namespace BehaviorDesigner.Editor
         if (sharedVariable2.IsShared && !sharedVariable2.IsDynamic && (string.IsNullOrEmpty(sharedVariable2.Name) && !TaskUtility.HasAttribute(field, typeof (SharedRequiredAttribute))))
           ErrorCheck.AddError(ref errorDetails, ErrorDetails.ErrorType.SharedVariable, task, field.Name);
         SharedVariable variable;
-        if (!Application.isPlaying && sharedVariable2.IsShared && (sharedVariable2.IsDynamic && !string.IsNullOrEmpty(sharedVariable2.Name)) && ((Object) task.Owner != (Object) null && (variable = task.Owner.GetBehaviorSource().GetVariable(sharedVariable2.Name)) != null && !variable.IsDynamic))
+        if (!Application.isPlaying && sharedVariable2.IsShared && (sharedVariable2.IsDynamic && !string.IsNullOrEmpty(sharedVariable2.Name)) && (task.Owner != null && (variable = task.Owner.GetBehaviorSource().GetVariable(sharedVariable2.Name)) != null && !variable.IsDynamic))
           ErrorCheck.AddError(ref errorDetails, ErrorDetails.ErrorType.NonUniqueDynamicVariable, task, field.Name);
         object obj = sharedVariable2.GetValue();
-        if (EditorApplication.isPlaying || !projectLevelBehavior || (sharedVariable2.IsShared || (object) (obj as Object) == null) || AssetDatabase.GetAssetPath(obj as Object).Length > 0)
+        if (EditorApplication.isPlaying || !projectLevelBehavior || (sharedVariable2.IsShared || (obj as Object) == null) || AssetDatabase.GetAssetPath(obj as Object).Length > 0)
           return;
         ErrorCheck.AddError(ref errorDetails, ErrorDetails.ErrorType.InvalidTaskReference, task, field.Name);
       }
-      else if ((object) (value as Object) != null)
+      else if ((value as Object) != null)
       {
         bool flag = AssetDatabase.GetAssetPath(value as Object).Length > 0;
         if (EditorApplication.isPlaying || !projectLevelBehavior || flag)
@@ -142,7 +142,7 @@ namespace BehaviorDesigner.Editor
 
     public static bool IsRequiredFieldValid(System.Type fieldType, object value)
     {
-      if (value == null || value.Equals((object) null))
+      if (value == null || value.Equals(null))
         return false;
       if (typeof (IList).IsAssignableFrom(fieldType))
       {
@@ -151,7 +151,7 @@ namespace BehaviorDesigner.Editor
           return false;
         for (int index = 0; index < list.Count; ++index)
         {
-          if (list[index] == null || list[index].Equals((object) null))
+          if (list[index] == null || list[index].Equals(null))
             return false;
         }
       }

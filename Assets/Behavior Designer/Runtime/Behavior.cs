@@ -301,7 +301,7 @@ namespace BehaviorDesigner.Runtime
         this.mBehaviorSource.SetVariable(name, instance);
       }
       else
-        Debug.LogError((object) ("Error: No variable exists with name " + name));
+        Debug.LogError(("Error: No variable exists with name " + name));
     }
 
     public List<SharedVariable> GetAllVariables()
@@ -461,7 +461,7 @@ namespace BehaviorDesigner.Runtime
         {
           T obj = (T) null;
           T task1;
-          if ((object) (task1 = this.FindTask<T>(parentTask.Children[index])) != null)
+          if ((task1 = this.FindTask<T>(parentTask.Children[index])) != null)
             return task1;
         }
       }
@@ -533,12 +533,12 @@ namespace BehaviorDesigner.Runtime
       MethodInfo method = task.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
       if (method == (MethodInfo) null)
       {
-        Debug.LogError((object) ("Unable to start coroutine " + methodName + ": method not found"));
+        Debug.LogError(("Unable to start coroutine " + methodName + ": method not found"));
         return (Coroutine) null;
       }
       if (this.activeTaskCoroutines == null)
         this.activeTaskCoroutines = new Dictionary<string, List<TaskCoroutine>>();
-      TaskCoroutine taskCoroutine = new TaskCoroutine(this, (IEnumerator) method.Invoke((object) task, new object[0]), methodName);
+      TaskCoroutine taskCoroutine = new TaskCoroutine(this, (IEnumerator) method.Invoke(task, new object[0]), methodName);
       if (this.activeTaskCoroutines.ContainsKey(methodName))
       {
         List<TaskCoroutine> activeTaskCoroutine = this.activeTaskCoroutines[methodName];
@@ -558,12 +558,12 @@ namespace BehaviorDesigner.Runtime
       MethodInfo method = task.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
       if (method == (MethodInfo) null)
       {
-        Debug.LogError((object) ("Unable to start coroutine " + methodName + ": method not found"));
+        Debug.LogError(("Unable to start coroutine " + methodName + ": method not found"));
         return (Coroutine) null;
       }
       if (this.activeTaskCoroutines == null)
         this.activeTaskCoroutines = new Dictionary<string, List<TaskCoroutine>>();
-      TaskCoroutine taskCoroutine = new TaskCoroutine(this, (IEnumerator) method.Invoke((object) task, new object[1]
+      TaskCoroutine taskCoroutine = new TaskCoroutine(this, (IEnumerator) method.Invoke(task, new object[1]
       {
         value
       }), methodName);
@@ -755,14 +755,14 @@ namespace BehaviorDesigner.Runtime
       Dictionary<string, object> dictionary = new Dictionary<string, object>();
       for (int index = 0; index < publicFields.Length; ++index)
       {
-        object obj = publicFields[index].GetValue((object) task);
+        object obj = publicFields[index].GetValue(task);
         if (obj is SharedVariable)
         {
           SharedVariable sharedVariable = obj as SharedVariable;
           if (sharedVariable.IsGlobal || sharedVariable.IsShared)
             continue;
         }
-        dictionary.Add(publicFields[index].Name, publicFields[index].GetValue((object) task));
+        dictionary.Add(publicFields[index].Name, publicFields[index].GetValue(task));
       }
       this.defaultValues.Add(task, dictionary);
       if (!(task is ParentTask))
@@ -790,7 +790,7 @@ namespace BehaviorDesigner.Runtime
       {
         FieldInfo field = task.GetType().GetField(keyValuePair.Key);
         if (field != (FieldInfo) null)
-          field.SetValue((object) task, keyValuePair.Value);
+          field.SetValue(task, keyValuePair.Value);
       }
       if (!(task is ParentTask))
         return;

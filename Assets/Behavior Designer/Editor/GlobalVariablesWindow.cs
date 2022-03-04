@@ -43,14 +43,14 @@ namespace BehaviorDesigner.Editor
     {
       GlobalVariablesWindow.instance = this;
       this.mVariableSource = GlobalVariables.Instance;
-      if ((Object) this.mVariableSource != (Object) null)
+      if (this.mVariableSource != null)
         this.mVariableSource.CheckForSerialization(!Application.isPlaying);
       FieldInspector.Init();
     }
 
     public void OnGUI()
     {
-      if ((Object) this.mVariableSource == (Object) null)
+      if (this.mVariableSource == null)
         this.mVariableSource = GlobalVariables.Instance;
       if (VariableInspector.DrawVariables((IVariableSource) this.mVariableSource, (BehaviorSource) null, ref this.mVariableName, ref this.mFocusNameField, ref this.mVariableTypeIndex, ref this.mScrollPosition, ref this.mVariablePosition, ref this.mVariableStartPosition, ref this.mSelectedVariableIndex, ref this.mSelectedVariableName, ref this.mSelectedVariableTypeIndex))
         this.SerializeVariables();
@@ -62,7 +62,7 @@ namespace BehaviorDesigner.Editor
 
     private void SerializeVariables()
     {
-      if ((Object) this.mVariableSource == (Object) null)
+      if (this.mVariableSource == null)
         this.mVariableSource = GlobalVariables.Instance;
       if (BehaviorDesignerPreferences.GetBool(BDPreferences.BinarySerialization))
         BinarySerialization.Save(this.mVariableSource);

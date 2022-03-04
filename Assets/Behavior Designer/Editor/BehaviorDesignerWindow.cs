@@ -65,7 +65,7 @@ namespace BehaviorDesigner.Editor
     private Dictionary<NodeDesigner, Task> mNodeDesignerTaskMap;
     private bool mEditorAtBreakpoint;
     [SerializeField]
-    private List<BehaviorDesigner.Editor.ErrorDetails> mErrorDetails;
+    private List<ErrorDetails> mErrorDetails;
     private bool mShowFindDialogue;
     private string mFindTaskValue;
     private SharedVariable mFindSharedVariable;
@@ -104,6 +104,9 @@ namespace BehaviorDesigner.Editor
     private UnityWebRequest mUpdateCheckRequest;
     private DateTime mLastUpdateCheck = DateTime.MinValue;
     private string mLatestVersion;
+    /// <summary>
+    /// 截屏？？？但是暂时应该是无用项，maybe是大佬们接下来提供的功能吧
+    /// </summary>
     private bool mTakingScreenshot;
     private float mScreenshotStartGraphZoom;
     private Vector2 mScreenshotStartGraphOffset;
@@ -610,18 +613,18 @@ namespace BehaviorDesigner.Editor
 
     public void OnGUI()
     {
-      this.mCurrentMousePosition = Event.current.mousePosition;
-      this.SetupSizes();
-      if (!this.mSizesInitialized)
+      mCurrentMousePosition = Event.current.mousePosition;
+      SetupSizes();
+      if (!mSizesInitialized)
       {
-        this.mSizesInitialized = true;
-        if (!this.mLockActiveGameObject || this.mActiveObject == (Object) null)
-          this.UpdateTree(true);
+        mSizesInitialized = true;
+        if (!mLockActiveGameObject || mActiveObject == null)
+          UpdateTree(true);
         else
-          this.ReloadPreviousBehavior();
+          ReloadPreviousBehavior();
       }
-      this.Draw();
-      this.HandleEvents();
+      Draw();
+      HandleEvents();
     }
 
     public void OnPlaymodeStateChange(PlayModeStateChange change) => this.OnPlaymodeStateChange();
@@ -1304,25 +1307,28 @@ namespace BehaviorDesigner.Editor
 
     public void IdentifyNode(NodeDesigner nodeDesigner) => this.mGraphDesigner.IdentifyNode(nodeDesigner);
 
+    /// <summary>
+    /// 截屏？？？
+    /// </summary>
     private void TakeScreenshot()
     {
       this.mScreenshotPath = EditorUtility.SaveFilePanel("Save Screenshot", "Assets", this.mActiveBehaviorSource.behaviorName + "Screenshot.png", "png");
       if (this.mScreenshotPath.Length != 0 && Application.dataPath.Length < this.mScreenshotPath.Length)
       {
         this.mTakingScreenshot = true;
-        this.mScreenshotGraphSize = this.mGraphDesigner.GraphSize((Vector3) this.mGraphOffset);
+        this.mScreenshotGraphSize = this.mGraphDesigner.GraphSize(mGraphOffset);
         this.mGraphDesigner.GraphDirty();
         if ((double) this.mScreenshotGraphSize.width == 0.0 || (double) this.mScreenshotGraphSize.height == 0.0)
           this.mScreenshotGraphSize = new Rect(0.0f, 0.0f, 100f, 100f);
-        this.mScreenshotStartGraphZoom = this.mGraphZoom;
-        this.mScreenshotStartGraphOffset = this.mGraphOffset;
-        this.mGraphZoom = 1f;
-        this.mGraphOffset.x -= this.mScreenshotGraphSize.xMin - 10f;
-        this.mGraphOffset.y -= this.mScreenshotGraphSize.yMin - 10f;
-        this.mScreenshotGraphOffset = this.mGraphOffset;
-        this.mScreenshotGraphSize.Set(this.mScreenshotGraphSize.xMin - 9f, this.mScreenshotGraphSize.yMin, this.mScreenshotGraphSize.width + 18f, this.mScreenshotGraphSize.height + 18f);
-        this.mScreenshotTexture = new Texture2D((int) this.mScreenshotGraphSize.width, (int) this.mScreenshotGraphSize.height, TextureFormat.RGB24, false);
-        this.Repaint();
+        mScreenshotStartGraphZoom = this.mGraphZoom;
+        mScreenshotStartGraphOffset = this.mGraphOffset;
+        mGraphZoom = 1f;
+        mGraphOffset.x -= this.mScreenshotGraphSize.xMin - 10f;
+        mGraphOffset.y -= this.mScreenshotGraphSize.yMin - 10f;
+        mScreenshotGraphOffset = this.mGraphOffset;
+        mScreenshotGraphSize.Set(this.mScreenshotGraphSize.xMin - 9f, this.mScreenshotGraphSize.yMin, this.mScreenshotGraphSize.width + 18f, this.mScreenshotGraphSize.height + 18f);
+        mScreenshotTexture = new Texture2D((int) this.mScreenshotGraphSize.width, (int) this.mScreenshotGraphSize.height, TextureFormat.RGB24, false);
+        Repaint();
       }
       else
       {

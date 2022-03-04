@@ -23,7 +23,7 @@ namespace BehaviorDesigner.Editor
         offset = (task.NodeData.NodeDesigner as NodeDesigner).GetAbsolutePosition() + new Vector2(10f, 10f),
         unityObjects = new List<Object>()
       };
-      taskSerializer.serialization = MiniJSON.Serialize((object) JSONSerialization.SerializeTask(task, false, ref taskSerializer.unityObjects));
+      taskSerializer.serialization = MiniJSON.Serialize(JSONSerialization.SerializeTask(task, false, ref taskSerializer.unityObjects));
       return taskSerializer;
     }
 
@@ -55,17 +55,17 @@ namespace BehaviorDesigner.Editor
               Task task2 = TaskCopier.TaskWithID(behaviorSource, taskId[index2]);
               if (task2 != null && (task2.GetType().Equals(fieldType.GetElementType()) || task2.GetType().IsSubclassOf(fieldType.GetElementType())))
               {
-                instance.SetValue((object) task2, index1);
+                instance.SetValue(task2, index1);
                 ++index1;
               }
             }
-            key.fieldInfo.SetValue((object) key.task, (object) instance);
+            key.fieldInfo.SetValue(key.task, instance);
           }
           else
           {
             Task task2 = TaskCopier.TaskWithID(behaviorSource, taskId[0]);
             if (task2 != null && (task2.GetType().Equals(key.fieldInfo.FieldType) || task2.GetType().IsSubclassOf(key.fieldInfo.FieldType)))
-              key.fieldInfo.SetValue((object) key.task, (object) task2);
+              key.fieldInfo.SetValue(key.task, task2);
           }
         }
         JSONDeserialization.TaskIDs = (Dictionary<JSONDeserialization.TaskField, List<int>>) null;
@@ -77,7 +77,7 @@ namespace BehaviorDesigner.Editor
     {
       if (task == null)
         return;
-      TaskCopier.CheckSharedVariableFields(behaviorSource, task, (object) task, new HashSet<object>());
+      TaskCopier.CheckSharedVariableFields(behaviorSource, task, task, new HashSet<object>());
       if (!(task is ParentTask))
         return;
       ParentTask parentTask = task as ParentTask;
@@ -105,7 +105,7 @@ namespace BehaviorDesigner.Editor
           {
             if (sharedVariable.IsShared && !sharedVariable.IsGlobal && (!string.IsNullOrEmpty(sharedVariable.Name) && behaviorSource.GetVariable(sharedVariable.Name) == null))
               behaviorSource.SetVariable(sharedVariable.Name, sharedVariable);
-            TaskCopier.CheckSharedVariableFields(behaviorSource, task, (object) sharedVariable, visitedObjects);
+            TaskCopier.CheckSharedVariableFields(behaviorSource, task, sharedVariable, visitedObjects);
           }
         }
         else if (serializableFields[index].FieldType.IsClass && !serializableFields[index].FieldType.Equals(typeof (System.Type)) && !typeof (Delegate).IsAssignableFrom(serializableFields[index].FieldType))

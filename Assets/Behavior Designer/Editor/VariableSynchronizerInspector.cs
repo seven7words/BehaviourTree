@@ -34,7 +34,7 @@ namespace BehaviorDesigner.Editor
     public override void OnInspectorGUI()
     {
       VariableSynchronizer target = this.target as VariableSynchronizer;
-      if ((Object) target == (Object) null)
+      if (target == null)
         return;
       GUILayout.Space(5f);
       target.UpdateInterval = (UpdateIntervalType) EditorGUILayout.EnumPopup("Update Interval", (Enum) target.UpdateInterval, (GUILayoutOption[]) Array.Empty<GUILayoutOption>());
@@ -51,7 +51,7 @@ namespace BehaviorDesigner.Editor
       {
         EditorGUILayout.BeginHorizontal((GUILayoutOption[]) Array.Empty<GUILayoutOption>());
         EditorGUILayout.LabelField("Direction", GUILayout.MaxWidth(146f));
-        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture(!this.setVariable ? "RightArrowButton.png" : "LeftArrowButton.png", obj: ((Object) this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)))
+        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture(!this.setVariable ? "RightArrowButton.png" : "LeftArrowButton.png", obj: (this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)))
           this.setVariable = !this.setVariable;
         EditorGUILayout.EndHorizontal();
         EditorGUI.BeginChangeCheck();
@@ -86,7 +86,7 @@ namespace BehaviorDesigner.Editor
         {
           VariableSynchronizer.SynchronizedVariable synchronizedVariable = new VariableSynchronizer.SynchronizedVariable(this.synchronizationType, this.setVariable, this.sharedVariableSynchronizer.component as Behavior, this.sharedVariableSynchronizer.targetName, this.sharedVariableSynchronizer.global, this.targetSynchronizer.component, this.targetSynchronizer.targetName, this.targetSynchronizer.global);
           target.SynchronizedVariables.Add(synchronizedVariable);
-          BehaviorDesignerUtility.SetObjectDirty((Object) target);
+          BehaviorDesignerUtility.SetObjectDirty(target);
           this.sharedVariableSynchronizer = new VariableSynchronizerInspector.Synchronizer();
           this.targetSynchronizer = new VariableSynchronizerInspector.Synchronizer();
         }
@@ -102,17 +102,17 @@ namespace BehaviorDesigner.Editor
     {
       bool flag = false;
       EditorGUI.BeginChangeCheck();
-      synchronizer.gameObject = EditorGUILayout.ObjectField("GameObject", (Object) synchronizer.gameObject, typeof (GameObject), true, (GUILayoutOption[]) Array.Empty<GUILayoutOption>()) as GameObject;
+      synchronizer.gameObject = EditorGUILayout.ObjectField("GameObject", synchronizer.gameObject, typeof (GameObject), true, (GUILayoutOption[]) Array.Empty<GUILayoutOption>()) as GameObject;
       if (EditorGUI.EndChangeCheck())
         flag = true;
-      if ((Object) synchronizer.gameObject == (Object) null)
+      if (synchronizer.gameObject == null)
         GUI.enabled = false;
       switch (listType)
       {
         case VariableSynchronizerInspector.ComponentListType.Instant:
           if (!flag)
             break;
-          if ((Object) synchronizer.gameObject != (Object) null)
+          if (synchronizer.gameObject != null)
           {
             synchronizer.component = synchronizer.gameObject.GetComponent(componentType);
             break;
@@ -124,12 +124,12 @@ namespace BehaviorDesigner.Editor
           List<string> stringList = new List<string>();
           Component[] componentArray = (Component[]) null;
           stringList.Add("None");
-          if ((Object) synchronizer.gameObject != (Object) null)
+          if (synchronizer.gameObject != null)
           {
             componentArray = synchronizer.gameObject.GetComponents(componentType);
             for (int index1 = 0; index1 < componentArray.Length; ++index1)
             {
-              if (componentArray[index1].Equals((object) synchronizer.component))
+              if (componentArray[index1].Equals(synchronizer.component))
                 selectedIndex = stringList.Count;
               string str = BehaviorDesignerUtility.SplitCamelCase(componentArray[index1].GetType().Name);
               int num = 0;
@@ -139,7 +139,7 @@ namespace BehaviorDesigner.Editor
                   ++num;
               }
               if (num > 0)
-                str = str + " " + (object) num;
+                str = str + " " + num;
               stringList.Add(str);
             }
           }
@@ -155,7 +155,7 @@ namespace BehaviorDesigner.Editor
           synchronizer.component = (Component) null;
           break;
         case VariableSynchronizerInspector.ComponentListType.BehaviorDesignerGroup:
-          if (!((Object) synchronizer.gameObject != (Object) null))
+          if (!(synchronizer.gameObject != null))
             break;
           Behavior[] components = synchronizer.gameObject.GetComponents<Behavior>();
           if (components != null && components.Length > 1)
@@ -173,7 +173,7 @@ namespace BehaviorDesigner.Editor
       int selectedIndex = 0;
       int globalStartIndex = -1;
       string[] names = (string[]) null;
-      if ((Object) synchronizer.component != (Object) null)
+      if (synchronizer.component != null)
       {
         Behavior component = synchronizer.component as Behavior;
         selectedIndex = FieldInspector.GetVariablesOfType(valueType, synchronizer.global, synchronizer.targetName, component.GetBehaviorSource(), out names, ref globalStartIndex, valueType == (System.Type) null, false);
@@ -198,7 +198,7 @@ namespace BehaviorDesigner.Editor
           }
           if (valueType == (System.Type) null)
           {
-            this.sharedVariableValueTypeName = (!synchronizer.global ? (object) (synchronizer.component as Behavior).GetVariable(names[index]) : (object) GlobalVariables.Instance.GetVariable(synchronizer.targetName)).GetType().GetProperty("Value").PropertyType.FullName;
+            this.sharedVariableValueTypeName = (!synchronizer.global ? (synchronizer.component as Behavior).GetVariable(names[index]) : GlobalVariables.Instance.GetVariable(synchronizer.targetName)).GetType().GetProperty("Value").PropertyType.FullName;
             this.sharedVariableValueType = (System.Type) null;
           }
         }
@@ -232,7 +232,7 @@ namespace BehaviorDesigner.Editor
       int selectedIndex = 0;
       List<string> stringList = new List<string>();
       stringList.Add("None");
-      if ((Object) synchronizer.component != (Object) null)
+      if (synchronizer.component != null)
       {
         PropertyInfo[] properties = synchronizer.component.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
         for (int index = 0; index < properties.Length; ++index)
@@ -316,7 +316,7 @@ namespace BehaviorDesigner.Editor
       lastRect.y += lastRect.height + 1f;
       lastRect.height = 2f;
       lastRect.width += 20f;
-      GUI.DrawTexture(lastRect, (Texture) BehaviorDesignerUtility.LoadTexture("ContentSeparator.png", obj: ((Object) this)));
+      GUI.DrawTexture(lastRect, (Texture) BehaviorDesignerUtility.LoadTexture("ContentSeparator.png", obj: (this)));
       GUILayout.Space(6f);
       for (int index = 0; index < variableSynchronizer.SynchronizedVariables.Count; ++index)
       {
@@ -336,11 +336,11 @@ namespace BehaviorDesigner.Editor
         }
         EditorGUILayout.BeginHorizontal((GUILayoutOption[]) Array.Empty<GUILayoutOption>());
         EditorGUILayout.LabelField(synchronizedVariable.variableName, GUILayout.MaxWidth(120f));
-        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture(!synchronizedVariable.setVariable ? "RightArrowButton.png" : "LeftArrowButton.png", obj: ((Object) this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)) && !Application.isPlaying)
+        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture(!synchronizedVariable.setVariable ? "RightArrowButton.png" : "LeftArrowButton.png", obj: (this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)) && !Application.isPlaying)
           synchronizedVariable.setVariable = !synchronizedVariable.setVariable;
-        EditorGUILayout.LabelField(string.Format("{0} ({1})", (object) synchronizedVariable.targetName, (object) synchronizedVariable.synchronizationType.ToString()), GUILayout.MinWidth(120f));
+        EditorGUILayout.LabelField(string.Format("{0} ({1})", synchronizedVariable.targetName, synchronizedVariable.synchronizationType.ToString()), GUILayout.MinWidth(120f));
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture("DeleteButton.png", obj: ((Object) this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)))
+        if (GUILayout.Button((Texture) BehaviorDesignerUtility.LoadTexture("DeleteButton.png", obj: (this)), BehaviorDesignerUtility.ButtonGUIStyle, GUILayout.Width(22f)))
         {
           variableSynchronizer.SynchronizedVariables.RemoveAt(index);
           EditorGUILayout.EndHorizontal();

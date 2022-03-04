@@ -149,14 +149,14 @@ namespace BehaviorDesigner.Editor
             if (task == null)
                 return;
             this.mTask = task;
-            if ((Object) owner != (Object) null)
+            if (owner != null)
                 this.mTask.Owner = owner;
             Task mTask1 = this.mTask;
             int num1;
             id = (num1 = id) + 1;
             int num2 = num1;
             mTask1.ID = num2;
-            this.mTask.NodeData.NodeDesigner = (object) this;
+            this.mTask.NodeData.NodeDesigner = this;
             this.mTask.NodeData.InitWatchedFields(this.mTask);
             if (!this.mTask.NodeData.FriendlyName.Equals(string.Empty))
             {
@@ -167,13 +167,13 @@ namespace BehaviorDesigner.Editor
             this.LoadTaskIcon();
             this.Init();
             RequiredComponentAttribute[] customAttributes;
-            if ((Object) this.mTask.Owner != (Object) null && (customAttributes =
+            if (this.mTask.Owner != null && (customAttributes =
                 this.mTask.GetType().GetCustomAttributes(typeof(RequiredComponentAttribute), true) as
                     RequiredComponentAttribute[]).Length > 0)
             {
                 Type componentType = customAttributes[0].ComponentType;
                 if (typeof(Component).IsAssignableFrom(componentType) &&
-                    (Object) this.mTask.Owner.gameObject.GetComponent(componentType) == (Object) null)
+                    this.mTask.Owner.gameObject.GetComponent(componentType) == null)
                     this.mTask.Owner.gameObject.AddComponent(componentType);
             }
 
@@ -188,12 +188,12 @@ namespace BehaviorDesigner.Editor
                     if (typeof(SharedVariable).IsAssignableFrom(fields[index2].FieldType) &&
                         !fields[index2].FieldType.IsAbstract)
                     {
-                        if (!(fields[index2].GetValue((object) this.mTask) is SharedVariable instance5))
+                        if (!(fields[index2].GetValue(this.mTask) is SharedVariable instance5))
                             instance5 = Activator.CreateInstance(fields[index2].FieldType) as SharedVariable;
                         if (TaskUtility.HasAttribute(fields[index2], typeof(RequiredFieldAttribute)) ||
                             TaskUtility.HasAttribute(fields[index2], typeof(SharedRequiredAttribute)))
                             instance5.IsShared = true;
-                        fields[index2].SetValue((object) this.mTask, (object) instance5);
+                        fields[index2].SetValue(this.mTask, instance5);
                     }
                 }
             }
@@ -227,18 +227,18 @@ namespace BehaviorDesigner.Editor
             mTask.ID = num2;
             this.mTask.NodeData = new NodeData();
             this.mTask.NodeData.Offset = offset;
-            this.mTask.NodeData.NodeDesigner = (object) this;
+            this.mTask.NodeData.NodeDesigner = this;
             this.LoadTaskIcon();
             this.Init();
             this.mTask.FriendlyName = this.taskName;
             RequiredComponentAttribute[] customAttributes;
-            if ((Object) this.mTask.Owner != (Object) null && (customAttributes =
+            if (this.mTask.Owner != null && (customAttributes =
                 this.mTask.GetType().GetCustomAttributes(typeof(RequiredComponentAttribute), true) as
                     RequiredComponentAttribute[]).Length > 0)
             {
                 Type componentType = customAttributes[0].ComponentType;
                 if (typeof(Component).IsAssignableFrom(componentType) &&
-                    (Object) this.mTask.Owner.gameObject.GetComponent(componentType) == (Object) null)
+                    this.mTask.Owner.gameObject.GetComponent(componentType) == null)
                     this.mTask.Owner.gameObject.AddComponent(componentType);
             }
 
@@ -253,12 +253,12 @@ namespace BehaviorDesigner.Editor
                     if (typeof(SharedVariable).IsAssignableFrom(fields[index2].FieldType) &&
                         !fields[index2].FieldType.IsAbstract)
                     {
-                        if (!(fields[index2].GetValue((object) this.mTask) is SharedVariable instance5))
+                        if (!(fields[index2].GetValue(this.mTask) is SharedVariable instance5))
                             instance5 = Activator.CreateInstance(fields[index2].FieldType) as SharedVariable;
                         if (TaskUtility.HasAttribute(fields[index2], typeof(RequiredFieldAttribute)) ||
                             TaskUtility.HasAttribute(fields[index2], typeof(SharedRequiredAttribute)))
                             instance5.IsShared = true;
-                        fields[index2].SetValue((object) this.mTask, (object) instance5);
+                        fields[index2].SetValue(this.mTask, instance5);
                     }
                 }
             }
@@ -272,7 +272,7 @@ namespace BehaviorDesigner.Editor
                     this.mTask.GetType().GetCustomAttributes(typeof(TaskIconAttribute), true) as TaskIconAttribute[])
                 .Length > 0)
                 this.mTask.NodeData.Icon = (Texture) BehaviorDesignerUtility.LoadIcon(customAttributes[0].IconPath);
-            if (!((Object) this.mTask.NodeData.Icon == (Object) null))
+            if (!(this.mTask.NodeData.Icon == null))
                 return;
             string empty = string.Empty;
             this.mTask.NodeData.Icon = (Texture) BehaviorDesignerUtility.LoadIcon(
@@ -308,7 +308,7 @@ namespace BehaviorDesigner.Editor
         public Vector2 GetAbsolutePosition()
         {
             Vector2 offset = this.mTask.NodeData.Offset;
-            if ((Object) this.parentNodeDesigner != (Object) null)
+            if (this.parentNodeDesigner != null)
                 offset += this.parentNodeDesigner.GetAbsolutePosition();
             if (BehaviorDesignerPreferences.GetBool(BDPreferences.SnapToGrid))
                 offset.Set(BehaviorDesignerUtility.RoundToNearest(offset.x, 10f),
@@ -415,9 +415,9 @@ namespace BehaviorDesigner.Editor
                 {
                     FieldInfo watchedField = this.mTask.NodeData.WatchedFields[index];
                     text1 = text1 + BehaviorDesignerUtility.SplitCamelCase(watchedField.Name) + ": \n";
-                    text2 = text2 + (watchedField.GetValue((object) this.mTask) == null
+                    text2 = text2 + (watchedField.GetValue(this.mTask) == null
                         ? "null"
-                        : watchedField.GetValue((object) this.mTask).ToString()) + "\n";
+                        : watchedField.GetValue(this.mTask).ToString()) + "\n";
                 }
 
                 float minWidth;
@@ -529,7 +529,7 @@ namespace BehaviorDesigner.Editor
                 flag3 = true;
             }
 
-            if (!this.isEntryDisplay && !this.prevRunningState && (Object) this.parentNodeDesigner != (Object) null)
+            if (!this.isEntryDisplay && !this.prevRunningState && this.parentNodeDesigner != null)
                 this.parentNodeDesigner.BringConnectionToFront(this);
             this.prevRunningState = flag1;
             if ((double) num2 != 1.0)
@@ -729,7 +729,7 @@ namespace BehaviorDesigner.Editor
                     {
                         if (!(this.mTask.NodeData.WatchedFields[index] == (FieldInfo) null))
                         {
-                            object obj = this.mTask.NodeData.WatchedFields[index].GetValue((object) this.mTask);
+                            object obj = this.mTask.NodeData.WatchedFields[index].GetValue(this.mTask);
                             if (obj != null)
                                 this.prevWatchedFieldsLength.Add(obj.ToString().Length);
                             else
@@ -743,7 +743,7 @@ namespace BehaviorDesigner.Editor
                     {
                         if (!(this.mTask.NodeData.WatchedFields[index] == (FieldInfo) null))
                         {
-                            object obj = this.mTask.NodeData.WatchedFields[index].GetValue((object) this.mTask);
+                            object obj = this.mTask.NodeData.WatchedFields[index].GetValue(this.mTask);
                             int num = 0;
                             if (obj != null)
                                 num = obj.ToString().Length;
@@ -768,9 +768,9 @@ namespace BehaviorDesigner.Editor
                 {
                     FieldInfo watchedField = this.mTask.NodeData.WatchedFields[index];
                     text1 = text1 + BehaviorDesignerUtility.SplitCamelCase(watchedField.Name) + ": \n";
-                    text2 = text2 + (watchedField.GetValue((object) this.mTask) == null
+                    text2 = text2 + (watchedField.GetValue(this.mTask) == null
                         ? "null"
-                        : watchedField.GetValue((object) this.mTask).ToString()) + "\n";
+                        : watchedField.GetValue(this.mTask).ToString()) + "\n";
                 }
 
                 GUI.Box(this.watchedFieldRect, string.Empty, BehaviorDesignerUtility.TaskDescriptionGUIStyle);
@@ -911,7 +911,7 @@ namespace BehaviorDesigner.Editor
         {
             this.mTask.NodeData.Offset += delta;
             this.MarkDirty();
-            if (!((Object) this.parentNodeDesigner != (Object) null))
+            if (!(this.parentNodeDesigner != null))
                 return;
             this.parentNodeDesigner.MarkDirty();
         }
@@ -961,7 +961,7 @@ namespace BehaviorDesigner.Editor
             childNodeDesigner.ParentNodeDesigner = this;
             nodeConnection.DestinationNodeDesigner = childNodeDesigner;
             nodeConnection.NodeConnectionType = NodeConnectionType.Fixed;
-            if (!nodeConnection.OriginatingNodeDesigner.Equals((object) this))
+            if (!nodeConnection.OriginatingNodeDesigner.Equals(this))
                 nodeConnection.OriginatingNodeDesigner = this;
             this.outgoingNodeConnections.Add(nodeConnection);
             this.mConnectionIsDirty = true;
@@ -974,8 +974,8 @@ namespace BehaviorDesigner.Editor
             for (int index = 0; index < this.outgoingNodeConnections.Count; ++index)
             {
                 NodeConnection outgoingNodeConnection = this.outgoingNodeConnections[index];
-                if (outgoingNodeConnection.DestinationNodeDesigner.Equals((object) childNodeDesigner) ||
-                    outgoingNodeConnection.OriginatingNodeDesigner.Equals((object) childNodeDesigner))
+                if (outgoingNodeConnection.DestinationNodeDesigner.Equals(childNodeDesigner) ||
+                    outgoingNodeConnection.OriginatingNodeDesigner.Equals(childNodeDesigner))
                 {
                     this.outgoingNodeConnections.RemoveAt(index);
                     break;
@@ -1011,7 +1011,7 @@ namespace BehaviorDesigner.Editor
                 {
                     for (int index = 0; index < mTask.Children.Count; ++index)
                     {
-                        if (mTask.Children[index].Equals((object) childTask))
+                        if (mTask.Children[index].Equals(childTask))
                             return index;
                     }
                 }
@@ -1049,7 +1049,7 @@ namespace BehaviorDesigner.Editor
         {
             for (int index = 0; index < this.outgoingNodeConnections.Count; ++index)
             {
-                if (this.outgoingNodeConnections[index].DestinationNodeDesigner.Equals((object) nodeDesigner))
+                if (this.outgoingNodeConnections[index].DestinationNodeDesigner.Equals(nodeDesigner))
                 {
                     NodeConnection outgoingNodeConnection = this.outgoingNodeConnections[index];
                     this.outgoingNodeConnections[index] =
@@ -1068,7 +1068,7 @@ namespace BehaviorDesigner.Editor
         {
             if (this.mTask.Disabled)
                 return true;
-            return (Object) this.parentNodeDesigner != (Object) null && this.parentNodeDesigner.IsDisabled();
+            return this.parentNodeDesigner != null && this.parentNodeDesigner.IsDisabled();
         }
 
         public bool ToggleCollapseState()
@@ -1083,9 +1083,9 @@ namespace BehaviorDesigner.Editor
 
         public bool HasParent(NodeDesigner nodeDesigner)
         {
-            if ((Object) this.parentNodeDesigner == (Object) null)
+            if (this.parentNodeDesigner == null)
                 return false;
-            return this.parentNodeDesigner.Equals((object) nodeDesigner) ||
+            return this.parentNodeDesigner.Equals(nodeDesigner) ||
                    this.parentNodeDesigner.HasParent(nodeDesigner);
         }
 
@@ -1094,10 +1094,10 @@ namespace BehaviorDesigner.Editor
             if (this.outgoingNodeConnections == null)
                 return;
             for (int index = this.outgoingNodeConnections.Count - 1; index > -1; --index)
-                Object.DestroyImmediate((Object) this.outgoingNodeConnections[index], true);
+                Object.DestroyImmediate(this.outgoingNodeConnections[index], true);
         }
 
-        public override bool Equals(object obj) => object.ReferenceEquals((object) this, obj);
+        public override bool Equals(object obj) => object.ReferenceEquals(this, obj);
 
         public override int GetHashCode() => base.GetHashCode();
 

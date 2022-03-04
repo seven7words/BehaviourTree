@@ -22,7 +22,7 @@
 
         private void AddColorMenuItem(ref GenericMenu menu, Task task, string color, int index) => menu.AddItem(
             new GUIContent(color), task.NodeData.ColorIndex == index, new GenericMenu.MenuFunction2(this.SetTaskColor),
-            (object) new TaskInspector.TaskColor(task, index));
+            new TaskInspector.TaskColor(task, index));
 
 
         private bool CanDrawReflectedField(object task, FieldInfo field)
@@ -254,7 +254,7 @@
                             GUILayout.Space(4f);
                             if (EditorGUI.EndChangeCheck())
                             {
-                                fields[index2].SetValue(obj, (object) sharedVariable);
+                                fields[index2].SetValue(obj, sharedVariable);
                                 GUI.changed = true;
                             }
                         }
@@ -301,11 +301,11 @@
             FieldInfo field)
         {
             SharedVariable sharedVariable1 =
-                task.GetType().GetField("targetGameObject").GetValue((object) task) as SharedVariable;
+                task.GetType().GetField("targetGameObject").GetValue(task) as SharedVariable;
             if (drawComponentField)
             {
                 GUILayout.Label(guiContent, GUILayout.Width(146f));
-                SharedVariable sharedVariable2 = field.GetValue((object) task) as SharedVariable;
+                SharedVariable sharedVariable2 = field.GetValue(task) as SharedVariable;
                 string empty = string.Empty;
                 string text;
                 if (sharedVariable2 == null || string.IsNullOrEmpty((string) sharedVariable2.GetValue()))
@@ -323,24 +323,24 @@
                     GenericMenu genericMenu = new GenericMenu();
                     genericMenu.AddItem(new GUIContent("None"),
                         string.IsNullOrEmpty((string) sharedVariable2.GetValue()),
-                        new GenericMenu.MenuFunction2(this.ComponentSelectionCallback), (object) null);
+                        new GenericMenu.MenuFunction2(this.ComponentSelectionCallback), null);
                     GameObject gameObject = (GameObject) null;
-                    if (sharedVariable1 == null || (Object) sharedVariable1.GetValue() == (Object) null)
+                    if (sharedVariable1 == null || sharedVariable1.GetValue() == null)
                     {
-                        if ((Object) task.Owner != (Object) null)
+                        if (task.Owner != null)
                             gameObject = task.Owner.gameObject;
                     }
                     else
                         gameObject = (GameObject) sharedVariable1.GetValue();
 
-                    if ((Object) gameObject != (Object) null)
+                    if (gameObject != null)
                     {
                         Component[] components = gameObject.GetComponents<Component>();
                         for (int index = 0; index < components.Length; ++index)
                             genericMenu.AddItem(new GUIContent(components[index].GetType().Name),
                                 components[index].GetType().FullName.Equals((string) sharedVariable2.GetValue()),
                                 new GenericMenu.MenuFunction2(this.ComponentSelectionCallback),
-                                (object) components[index].GetType().FullName);
+                                components[index].GetType().FullName);
                         genericMenu.ShowAsContext();
                         this.mActiveMenuSelectionTask = task;
                     }
@@ -350,8 +350,8 @@
             {
                 GUILayout.Label(guiContent, GUILayout.Width(146f));
                 SharedVariable sharedVariable2 =
-                    task.GetType().GetField("componentName").GetValue((object) task) as SharedVariable;
-                SharedVariable sharedVariable3 = field.GetValue((object) task) as SharedVariable;
+                    task.GetType().GetField("componentName").GetValue(task) as SharedVariable;
+                SharedVariable sharedVariable3 = field.GetValue(task) as SharedVariable;
                 string empty = string.Empty;
                 if (GUILayout.Button(
                         sharedVariable2 == null || string.IsNullOrEmpty((string) sharedVariable2.GetValue())
@@ -364,17 +364,17 @@
                     GenericMenu genericMenu = new GenericMenu();
                     genericMenu.AddItem(new GUIContent("None"),
                         string.IsNullOrEmpty((string) sharedVariable3.GetValue()),
-                        new GenericMenu.MenuFunction2(this.SecondaryReflectionSelectionCallback), (object) null);
+                        new GenericMenu.MenuFunction2(this.SecondaryReflectionSelectionCallback), null);
                     GameObject gameObject = (GameObject) null;
-                    if (sharedVariable1 == null || (Object) sharedVariable1.GetValue() == (Object) null)
+                    if (sharedVariable1 == null || sharedVariable1.GetValue() == null)
                     {
-                        if ((Object) task.Owner != (Object) null)
+                        if (task.Owner != null)
                             gameObject = task.Owner.gameObject;
                     }
                     else
                         gameObject = (GameObject) sharedVariable1.GetValue();
 
-                    if ((Object) gameObject != (Object) null)
+                    if (gameObject != null)
                     {
                         Component component =
                             gameObject.GetComponent(
@@ -407,7 +407,7 @@
                                         genericMenu.AddItem(new GUIContent(methods[index1].Name),
                                             methods[index1].Name.Equals((string) sharedVariable3.GetValue()),
                                             new GenericMenu.MenuFunction2(this.SecondaryReflectionSelectionCallback),
-                                            (object) methods[index1]);
+                                            methods[index1]);
                                 }
                             }
                         }
@@ -422,7 +422,7 @@
                                     genericMenu.AddItem(new GUIContent(fields[index].Name),
                                         fields[index].Name.Equals((string) sharedVariable3.GetValue()),
                                         new GenericMenu.MenuFunction2(this.SecondaryReflectionSelectionCallback),
-                                        (object) fields[index]);
+                                        fields[index]);
                             }
                         }
                         else
@@ -436,7 +436,7 @@
                                     genericMenu.AddItem(new GUIContent(properties[index].Name),
                                         properties[index].Name.Equals((string) sharedVariable3.GetValue()),
                                         new GenericMenu.MenuFunction2(this.SecondaryReflectionSelectionCallback),
-                                        (object) properties[index]);
+                                        properties[index]);
                             }
                         }
 
@@ -473,7 +473,7 @@
                 if (sharedVariable == null)
                 {
                     this.mActiveMenuSelectionTask = task;
-                    this.SecondaryReflectionSelectionCallback((object) null);
+                    this.SecondaryReflectionSelectionCallback(null);
                     this.ClearInvokeVariablesTask();
                     return (SharedVariable) null;
                 }
@@ -520,7 +520,7 @@
                         (field.Name.Equals("fieldName") || field.Name.Equals("propertyName")))
                         this.DrawReflectionField(task, guiContent, drawComponentField, field);
                     else
-                        FieldInspector.DrawFields(task, (object) sharedVariable, guiContent);
+                        FieldInspector.DrawFields(task, sharedVariable, guiContent);
                 }
 
                 if (!TaskUtility.HasAttribute(field, typeof(RequiredFieldAttribute)) &&
@@ -1271,27 +1271,27 @@
                         : this.mActiveMenuSelectionTask.GetType().GetField("fieldName");
 
                 if (obj == null)
-                    fieldInfo1.SetValue((object) this.mActiveMenuSelectionTask, (object) instance1);
+                    fieldInfo1.SetValue(this.mActiveMenuSelectionTask, instance1);
                 else if (this.IsInvokeMethodTask(this.mActiveMenuSelectionTask.GetType()))
                 {
                     MethodInfo methodInfo = (MethodInfo) obj;
-                    instance1.SetValue((object) methodInfo.Name);
-                    fieldInfo1.SetValue((object) this.mActiveMenuSelectionTask, (object) instance1);
+                    instance1.SetValue(methodInfo.Name);
+                    fieldInfo1.SetValue(this.mActiveMenuSelectionTask, instance1);
                     ParameterInfo[] parameters = methodInfo.GetParameters();
                     for (int index = 0; index < 4; ++index)
                     {
                         FieldInfo field = this.mActiveMenuSelectionTask.GetType()
-                            .GetField("parameter" + (object) (index + 1));
+                            .GetField("parameter" + (index + 1));
                         if (index < parameters.Length)
                         {
                             SharedVariable instance2 =
                                 Activator.CreateInstance(
                                         FieldInspector.FriendlySharedVariableName(parameters[index].ParameterType)) as
                                     SharedVariable;
-                            field.SetValue((object) this.mActiveMenuSelectionTask, (object) instance2);
+                            field.SetValue(this.mActiveMenuSelectionTask, instance2);
                         }
                         else
-                            field.SetValue((object) this.mActiveMenuSelectionTask, (object) null);
+                            field.SetValue(this.mActiveMenuSelectionTask, null);
                     }
 
                     if (!methodInfo.ReturnType.Equals(typeof(void)))
@@ -1301,14 +1301,14 @@
                             Activator.CreateInstance(FieldInspector.FriendlySharedVariableName(methodInfo.ReturnType))
                                 as SharedVariable;
                         instance2.IsShared = true;
-                        field.SetValue((object) this.mActiveMenuSelectionTask, (object) instance2);
+                        field.SetValue(this.mActiveMenuSelectionTask, instance2);
                     }
                 }
                 else if (this.IsFieldReflectionTask(this.mActiveMenuSelectionTask.GetType()))
                 {
                     FieldInfo fieldInfo2 = (FieldInfo) obj;
-                    instance1.SetValue((object) fieldInfo2.Name);
-                    fieldInfo1.SetValue((object) this.mActiveMenuSelectionTask, (object) instance1);
+                    instance1.SetValue(fieldInfo2.Name);
+                    fieldInfo1.SetValue(this.mActiveMenuSelectionTask, instance1);
                     FieldInfo field = this.mActiveMenuSelectionTask.GetType().GetField("fieldValue");
                     if (field == (FieldInfo) null)
                         field = this.mActiveMenuSelectionTask.GetType().GetField("compareValue");
@@ -1316,13 +1316,13 @@
                         Activator.CreateInstance(FieldInspector.FriendlySharedVariableName(fieldInfo2.FieldType)) as
                             SharedVariable;
                     instance2.IsShared = this.IsReflectionGetterTask(this.mActiveMenuSelectionTask.GetType());
-                    field.SetValue((object) this.mActiveMenuSelectionTask, (object) instance2);
+                    field.SetValue(this.mActiveMenuSelectionTask, instance2);
                 }
                 else
                 {
                     PropertyInfo propertyInfo = (PropertyInfo) obj;
-                    instance1.SetValue((object) propertyInfo.Name);
-                    fieldInfo1.SetValue((object) this.mActiveMenuSelectionTask, (object) instance1);
+                    instance1.SetValue(propertyInfo.Name);
+                    fieldInfo1.SetValue(this.mActiveMenuSelectionTask, instance1);
                     FieldInfo field = this.mActiveMenuSelectionTask.GetType().GetField("propertyValue");
                     if (field == (FieldInfo) null)
                         field = this.mActiveMenuSelectionTask.GetType().GetField("compareValue");
@@ -1330,7 +1330,7 @@
                         Activator.CreateInstance(FieldInspector.FriendlySharedVariableName(propertyInfo.PropertyType))
                             as SharedVariable;
                     instance2.IsShared = this.IsReflectionGetterTask(this.mActiveMenuSelectionTask.GetType());
-                    field.SetValue((object) this.mActiveMenuSelectionTask, (object) instance2);
+                    field.SetValue(this.mActiveMenuSelectionTask, instance2);
                 }
             }
 
@@ -1342,11 +1342,11 @@
             MonoScript[] objectsOfTypeAll = (MonoScript[]) Resources.FindObjectsOfTypeAll(typeof(MonoScript));
             for (int index = 0; index < objectsOfTypeAll.Length; ++index)
             {
-                if ((Object) objectsOfTypeAll[index] != (Object) null &&
+                if (objectsOfTypeAll[index] != null &&
                     objectsOfTypeAll[index].GetClass() != (System.Type) null &&
                     objectsOfTypeAll[index].GetClass().Equals(task.GetType()))
                 {
-                    Selection.activeObject = (Object) objectsOfTypeAll[index];
+                    Selection.activeObject = objectsOfTypeAll[index];
                     break;
                 }
             }
