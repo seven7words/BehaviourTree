@@ -111,8 +111,8 @@ namespace BehaviorDesigner.Editor
     private Rect mScreenshotGraphSize;
     private Vector2 mScreenshotGraphOffset;
     private string mScreenshotPath;
-    public BehaviorDesignerWindow.TaskCallbackHandler onAddTask;
-    public BehaviorDesignerWindow.TaskCallbackHandler onRemoveTask;
+    public TaskCallbackHandler onAddTask;
+    public TaskCallbackHandler onRemoveTask;
     private List<TaskSerializer> mCopiedTasks;
 
     public List<BehaviorDesigner.Editor.ErrorDetails> ErrorDetails => this.mErrorDetails;
@@ -160,13 +160,13 @@ namespace BehaviorDesigner.Editor
       }
     }
 
-    public BehaviorDesignerWindow.TaskCallbackHandler OnAddTask
+    public TaskCallbackHandler OnAddTask
     {
       get => this.onAddTask;
       set => this.onAddTask += value;
     }
 
-    public BehaviorDesignerWindow.TaskCallbackHandler OnRemoveTask
+    public TaskCallbackHandler OnRemoveTask
     {
       get => this.onRemoveTask;
       set => this.onRemoveTask += value;
@@ -175,7 +175,7 @@ namespace BehaviorDesigner.Editor
     [MenuItem("Tools/Behavior Designer/Editor", false, 0)]
     public static void ShowWindow()
     {
-      BehaviorDesignerWindow window = EditorWindow.GetWindow<BehaviorDesignerWindow>(false, "Behavior Designer");
+      BehaviorDesignerWindow window = GetWindow<BehaviorDesignerWindow>(false, "Behavior Designer");
       window.wantsMouseMove = true;
       window.minSize = new Vector2(700f, 100f);
       window.Init();
@@ -1877,24 +1877,32 @@ namespace BehaviorDesigner.Editor
       return true;
     }
 
+    /// <summary>
+    /// 鼠标滚动，缩放画布...并且重绘
+    /// </summary>
+    /// <returns></returns>
     private bool MouseZoom()
     {
       Vector2 mousePosition1;
-      if (!this.GetMousePositionInGraph(out mousePosition1))
+      if (!GetMousePositionInGraph(out mousePosition1))
         return false;
-      this.mGraphZoom += (float) (-((double) Event.current.delta.y * (double) this.mGraphZoomMultiplier) / 150.0);
-      this.mGraphZoom = Mathf.Clamp(this.mGraphZoom, 0.2f, 1f);
+      mGraphZoom += (float) (-(Event.current.delta.y * (double) mGraphZoomMultiplier) / 150.0);
+      mGraphZoom = Mathf.Clamp(mGraphZoom, 0.2f, 1f);
       Vector2 mousePosition2;
-      this.GetMousePositionInGraph(out mousePosition2);
-      this.mGraphOffset += mousePosition2 - mousePosition1;
-      this.mGraphScrollPosition += mousePosition2 - mousePosition1;
-      this.mGraphDesigner.GraphDirty();
+      GetMousePositionInGraph(out mousePosition2);
+      mGraphOffset += mousePosition2 - mousePosition1;
+      mGraphScrollPosition += mousePosition2 - mousePosition1;
+      mGraphDesigner.GraphDirty();
       return true;
     }
 
+    /// <summary>
+    /// 鼠标滑轮移动更改右侧画布的位置
+    /// </summary>
+    /// <returns></returns>
     private bool MousePan()
     {
-      if (!this.GetMousePositionInGraph(out Vector2 _))
+      if (!GetMousePositionInGraph(out Vector2 _))
         return false;
       Vector2 delta = Event.current.delta;
       if (Event.current.type == UnityEngine.EventType.ScrollWheel)
@@ -1906,10 +1914,14 @@ namespace BehaviorDesigner.Editor
           delta.y = 0.0f;
         }
       }
-      this.ScrollGraph(delta);
+      ScrollGraph(delta);
       return true;
     }
 
+    /// <summary>
+    /// 可以滚动的画布的具体滑动结果并且绘制
+    /// </summary>
+    /// <param name="amount"></param>
     private void ScrollGraph(Vector2 amount)
     {
       this.mGraphOffset += amount / this.mGraphZoom;
